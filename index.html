@@ -343,6 +343,7 @@
 <li>组合方法，将先前的方法合并或转换成新的方法。</li>
 <li>其他工厂方法来创建方法来模拟其他常见的JVM操作或控制流模式</li>
 </ul>
+<h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><figure class="highlight plain"><figcaption><span>java</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Object x, y; String s; int i;</div><div class="line">MethodType mt; MethodHandle mh;</div><div class="line">MethodHandles.Lookup lookup = MethodHandles.lookup();</div><div class="line">mt = MethodType.methodType(String.class, char.class, char.class);</div><div class="line">mh = lookup.findVirtual(String.class, &quot;replace&quot;, mt);</div><div class="line">s = (String) mh.invokeExact(&quot;daddy&quot;,&apos;d&apos;,&apos;n&apos;);</div></pre></td></tr></table></figure>
 
           
         
