@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="JDK7为间接调用方法引入新的API,在java.lang.invoke包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重 主要的类MethodHandle方法句柄、对可直接执行的方法的类型化引用，能够安全调用方法的对象。MethodHandle 是抽象类，无法直接实例化，需通过MethodHandles.Lookup的工厂方法来创建 MethodType每个方法句柄都有一个Met">
+<meta name="description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种。我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MethodHandle">
-<meta property="og:url" content="http://zhangxh20.github.io/2017/06/09/methodhandle/index.html">
+<meta property="og:title" content="Java NIO中的Buffer">
+<meta property="og:url" content="http://zhangxh20.github.io/2017/06/13/buffer/index.html">
 <meta property="og:site_name" content="张贤河">
-<meta property="og:description" content="JDK7为间接调用方法引入新的API,在java.lang.invoke包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重 主要的类MethodHandle方法句柄、对可直接执行的方法的类型化引用，能够安全调用方法的对象。MethodHandle 是抽象类，无法直接实例化，需通过MethodHandles.Lookup的工厂方法来创建 MethodType每个方法句柄都有一个Met">
-<meta property="og:updated_time" content="2017-06-13T15:00:27.612Z">
+<meta property="og:description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种。我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除">
+<meta property="og:updated_time" content="2017-06-13T15:00:48.228Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MethodHandle">
-<meta name="twitter:description" content="JDK7为间接调用方法引入新的API,在java.lang.invoke包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重 主要的类MethodHandle方法句柄、对可直接执行的方法的类型化引用，能够安全调用方法的对象。MethodHandle 是抽象类，无法直接实例化，需通过MethodHandles.Lookup的工厂方法来创建 MethodType每个方法句柄都有一个Met">
+<meta name="twitter:title" content="Java NIO中的Buffer">
+<meta name="twitter:description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种。我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://zhangxh20.github.io/2017/06/09/methodhandle/"/>
+  <link rel="canonical" href="http://zhangxh20.github.io/2017/06/13/buffer/"/>
 
 
 
 
 
-  <title> MethodHandle | 张贤河 </title>
+  <title> Java NIO中的Buffer | 张贤河 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +260,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/09/methodhandle/">
+    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/13/buffer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhangxianhe">
@@ -281,7 +281,7 @@
             
             
               
-                MethodHandle
+                Java NIO中的Buffer
               
             
           </h1>
@@ -296,8 +296,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-09T18:07:39+08:00">
-                2017-06-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-13T12:07:39+08:00">
+                2017-06-13
               </time>
             
 
@@ -332,33 +332,28 @@
       
 
       
-        <p>JDK7为间接调用方法引入新的API,在<code>java.lang.invoke</code>包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重</p>
-<h2 id="主要的类"><a href="#主要的类" class="headerlink" title="主要的类"></a>主要的类</h2><h3 id="MethodHandle"><a href="#MethodHandle" class="headerlink" title="MethodHandle"></a>MethodHandle</h3><p>方法句柄、对可直接执行的方法的类型化引用，能够安全调用方法的对象。<br><code>MethodHandle</code> 是抽象类，无法直接实例化，需通过<code>MethodHandles.Lookup</code>的工厂方法来创建</p>
-<h3 id="MethodType"><a href="#MethodType" class="headerlink" title="MethodType"></a>MethodType</h3><p>每个方法句柄都有一个<code>MethodType</code>实例，用来指明方法的返回类型和参数类型。</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种。我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除操作。</p>
+<p>　　Buffer可以理解成是一个容器，可以往容器里写入数据，也可以从容器中读取数据，可以一个字节一个字节的读写，也可以多个字节读写，可以在写的途中切换为读，读到一半又切换到写，等等。。。</p>
+<p>　　Buffer有以下几个属性:</p>
 <ul>
-<li><code>static MethodType methodType(Class&lt;?&gt; rtype, Class&lt;?&gt; ptype0, Class&lt;?&gt;... ptypes)</code><br>第一次参数是返回类型，后面的剩余参数是方法的参数类型</li>
-</ul>
-<h3 id="MethodHandles"><a href="#MethodHandles" class="headerlink" title="MethodHandles"></a>MethodHandles</h3><p>这个类只包含操作或返回方法句柄的静态方法。它们分为以下几类: </p>
-<ul>
-<li>查找方法，帮助创建方法和字段的方法句柄。</li>
-<li>组合方法，将先前的方法合并或转换成新的方法。</li>
-<li>其他工厂方法来创建方法来模拟其他常见的JVM操作或控制流模式</li>
-</ul>
-<h3 id="MethodHandles-Lookup"><a href="#MethodHandles-Lookup" class="headerlink" title="MethodHandles.Lookup"></a>MethodHandles.Lookup</h3><p>创建<code>MethodHandle</code>只想的工厂方法查找类</p>
-<ul>
-<li><code>MethodHandle findVirtual(Class&lt;?&gt; refc, String name, MethodType type)</code>查找方法名为name的方法</li>
-<li><code>MethodHandle findStatic(Class&lt;?&gt; refc, String name, MethodType type)</code>查找静态方法</li>
-<li><code>MethodHandle findSetter(Class&lt;?&gt; refc, String name, Class&lt;?&gt; type)</code>查找setter方法,name是该属性的名称，不是方法名称</li>
-</ul>
-<h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><ul>
-<li>获取String类的replace方法，并传参调用<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">MethodHandles.Lookup lookup = MethodHandles.lookup();</div><div class="line">MethodType mt = MethodType.methodType(String.class, <span class="keyword">char</span>.class, <span class="keyword">char</span>.class);</div><div class="line">MethodHandle mh = lookup.findVirtual(String.class, <span class="string">"replace"</span>, mt);</div><div class="line">String s = (String) mh.invokeExact(<span class="string">"daddy"</span>,<span class="string">'d'</span>,<span class="string">'n'</span>);</div></pre></td></tr></table></figure>
+<li><code>int mark</code> 标记</li>
+<li><code>int position</code> 位置</li>
+<li><code>int limit</code>限制</li>
+<li><p><code>int capacity</code>缓冲区的容量，Buffer的容量是固定的，在创建Buffer对象时，制定容量大小。</p>
+<p>　　这几个属性，有什么作用，用在什么地方，为何设置这4个属性。其实不用先理解，在了解<code>reset()</code>,<code>flip()</code>等方法后，就会明白这四个属性的用处。</p>
 </li>
 </ul>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li>《Java程序员修炼之道》</li>
-<li>Java SE 8 API Documentation</li>
+<h2 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h2><h3 id="mark-、reset"><a href="#mark-、reset" class="headerlink" title="mark()、reset()"></a>mark()、reset()</h3><ul>
+<li><p><code>mark()</code>在Buffer当前的位置设置标记</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">mark</span><span class="params">()</span> </span>&#123;</div><div class="line">    mark = position;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>reset()</code>充值Buffer当前的位置为上一次的标记</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">reset</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> m = mark;</div><div class="line">    <span class="keyword">if</span> (m &lt; <span class="number">0</span>)</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidMarkException();</div><div class="line">    position = m;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
 </ul>
-
+<p>不变式<br>标记、位置、限制和容量值遵守以下不变式： </p>
+<p>0 &lt;= 标记 &lt;= 位置 &lt;= 限制 &lt;= 容量<br>新创建的缓冲区总有一个 0 位置和一个未定义的标记。初始限制可以为 0，也可以为其他值，这取决于缓冲区类型及其构建方式。一般情况下，缓冲区的初始内容是未定义的。 </p>
+<h3 id="clear-flip-rewind"><a href="#clear-flip-rewind" class="headerlink" title="clear,flip, rewind"></a>clear,flip, rewind</h3><h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><h2 id="ByteBuffer"><a href="#ByteBuffer" class="headerlink" title="ByteBuffer"></a>ByteBuffer</h2>
       
     </div>
 
@@ -400,15 +395,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/06/09/methodhandle/" rel="next" title="MethodHandle">
+                <i class="fa fa-chevron-left"></i> MethodHandle
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/13/buffer/" rel="prev" title="Java NIO中的Buffer">
-                Java NIO中的Buffer <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -528,7 +523,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要的类"><span class="nav-number">1.</span> <span class="nav-text">主要的类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MethodHandle"><span class="nav-number">1.1.</span> <span class="nav-text">MethodHandle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MethodType"><span class="nav-number">1.2.</span> <span class="nav-text">MethodType</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MethodHandles"><span class="nav-number">1.3.</span> <span class="nav-text">MethodHandles</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MethodHandles-Lookup"><span class="nav-number">1.4.</span> <span class="nav-text">MethodHandles.Lookup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用示例"><span class="nav-number">2.</span> <span class="nav-text">使用示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要方法"><span class="nav-number">2.</span> <span class="nav-text">主要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mark-、reset"><span class="nav-number">2.1.</span> <span class="nav-text">mark()、reset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clear-flip-rewind"><span class="nav-number">2.2.</span> <span class="nav-text">clear,flip, rewind</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程安全"><span class="nav-number">3.</span> <span class="nav-text">线程安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ByteBuffer"><span class="nav-number">4.</span> <span class="nav-text">ByteBuffer</span></a></li></ol></div>
             
 
           </div>
