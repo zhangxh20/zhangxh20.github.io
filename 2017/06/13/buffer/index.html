@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种。我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除">
+<meta name="description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种,我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java NIO中的Buffer">
 <meta property="og:url" content="http://zhangxh20.github.io/2017/06/13/buffer/index.html">
 <meta property="og:site_name" content="张贤河">
-<meta property="og:description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种。我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除">
-<meta property="og:updated_time" content="2017-06-13T15:00:48.228Z">
+<meta property="og:description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种,我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除">
+<meta property="og:updated_time" content="2017-06-14T15:41:39.686Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java NIO中的Buffer">
-<meta name="twitter:description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种。我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除">
+<meta name="twitter:description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种,我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除">
 
 
 
@@ -332,7 +332,7 @@
       
 
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种。我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除操作。</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种,我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除操作。</p>
 <p>　　Buffer可以理解成是一个容器，可以往容器里写入数据，也可以从容器中读取数据，可以一个字节一个字节的读写，也可以多个字节读写，可以在写的途中切换为读，读到一半又切换到写，等等。。。</p>
 <p>　　Buffer有以下几个属性:</p>
 <ul>
@@ -343,17 +343,22 @@
 <p>　　这几个属性，有什么作用，用在什么地方，为何设置这4个属性。其实不用先理解，在了解<code>reset()</code>,<code>flip()</code>等方法后，就会明白这四个属性的用处。</p>
 </li>
 </ul>
-<h2 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h2><h3 id="mark-、reset"><a href="#mark-、reset" class="headerlink" title="mark()、reset()"></a>mark()、reset()</h3><ul>
+<h2 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h2><h3 id="mark、reset"><a href="#mark、reset" class="headerlink" title="mark、reset"></a>mark、reset</h3><ul>
 <li><p><code>mark()</code>在Buffer当前的位置设置标记</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">mark</span><span class="params">()</span> </span>&#123;</div><div class="line">    mark = position;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
-<li><p><code>reset()</code>充值Buffer当前的位置为上一次的标记</p>
+<li><p><code>reset()</code>重置Buffer当前的位置为上一次的标记</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">reset</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> m = mark;</div><div class="line">    <span class="keyword">if</span> (m &lt; <span class="number">0</span>)</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidMarkException();</div><div class="line">    position = m;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>不变式<br>标记、位置、限制和容量值遵守以下不变式： </p>
+<p>　　这两个方法的使用场景，从Buffer读取n个字节数据，结果读出来的数据长度比n小（比如网络是拆包问题），这时候会重新再读一次，调用reset()方法。但并不是所有读操作是从位置0开始读，所以在reset()先设置一个标记，调用mark()，最后position = mark，就是从标记的mark位置开始读。</p>
+<h3 id="clear-flip-rewind"><a href="#clear-flip-rewind" class="headerlink" title="clear,flip, rewind"></a>clear,flip, rewind</h3><ul>
+<li><code>clear()</code>清除Buffer<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">clear</span><span class="params">()</span> </span>&#123;</div><div class="line">    position = <span class="number">0</span>;</div><div class="line">    limit = capacity;</div><div class="line">    mark = -<span class="number">1</span>;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+<li><code>flip()</code>反转Buffer,何谓“反转”？在执行完写操作之后，调用调用flip()为下次的读操作准备。<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">flip</span><span class="params">()</span> </span>&#123;</div><div class="line">    limit = position;</div><div class="line">    position = <span class="number">0</span>;</div><div class="line">    mark = -<span class="number">1</span>;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+　　从源码上看来，进行完写操作后，写入100个字节，所以当前位置position=100，为了下次读操作，读出来是这100个字节数据，所以limit也设为100，限制最多读到100个字节。下次读是从位置0开始，所以position=0。<br><strong>不变式</strong><br>标记、位置、限制和容量值遵守以下不变式： </li>
+</ul>
 <p>0 &lt;= 标记 &lt;= 位置 &lt;= 限制 &lt;= 容量<br>新创建的缓冲区总有一个 0 位置和一个未定义的标记。初始限制可以为 0，也可以为其他值，这取决于缓冲区类型及其构建方式。一般情况下，缓冲区的初始内容是未定义的。 </p>
-<h3 id="clear-flip-rewind"><a href="#clear-flip-rewind" class="headerlink" title="clear,flip, rewind"></a>clear,flip, rewind</h3><h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><h2 id="ByteBuffer"><a href="#ByteBuffer" class="headerlink" title="ByteBuffer"></a>ByteBuffer</h2>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><h2 id="ByteBuffer"><a href="#ByteBuffer" class="headerlink" title="ByteBuffer"></a>ByteBuffer</h2>
       
     </div>
 
@@ -523,7 +528,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要方法"><span class="nav-number">2.</span> <span class="nav-text">主要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mark-、reset"><span class="nav-number">2.1.</span> <span class="nav-text">mark()、reset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clear-flip-rewind"><span class="nav-number">2.2.</span> <span class="nav-text">clear,flip, rewind</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程安全"><span class="nav-number">3.</span> <span class="nav-text">线程安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ByteBuffer"><span class="nav-number">4.</span> <span class="nav-text">ByteBuffer</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要方法"><span class="nav-number">2.</span> <span class="nav-text">主要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mark、reset"><span class="nav-number">2.1.</span> <span class="nav-text">mark、reset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clear-flip-rewind"><span class="nav-number">2.2.</span> <span class="nav-text">clear,flip, rewind</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程安全"><span class="nav-number">3.</span> <span class="nav-text">线程安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ByteBuffer"><span class="nav-number">4.</span> <span class="nav-text">ByteBuffer</span></a></li></ol></div>
             
 
           </div>
