@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Java," />
 
 
 
@@ -87,12 +87,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="张贤河">
-<meta property="og:url" content="http://zhangxh20.github.io/archives/2017/06/index.html">
+<meta name="description" content="String首先从String对象说起，String对象的组成元素是一个char组数char 在Java是占用两个字节，采用Unicode编码。这时候字符集的概念就出来了。 字符集charset字符集，可以理解成是一个二维表，它有id和name两个字段，或类似key-value的映射关系，其中key是编号，value是对应的字符而这个二维表，是不依赖于任何编程语言，独立的映射关系。 在String">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符集和字符编码Unicode和UTF-8的关系">
+<meta property="og:url" content="http://zhangxh20.github.io/2017/06/15/unicodeutf8/index.html">
 <meta property="og:site_name" content="张贤河">
+<meta property="og:description" content="String首先从String对象说起，String对象的组成元素是一个char组数char 在Java是占用两个字节，采用Unicode编码。这时候字符集的概念就出来了。 字符集charset字符集，可以理解成是一个二维表，它有id和name两个字段，或类似key-value的映射关系，其中key是编号，value是对应的字符而这个二维表，是不依赖于任何编程语言，独立的映射关系。 在String">
+<meta property="og:updated_time" content="2017-06-19T15:59:55.515Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="张贤河">
+<meta name="twitter:title" content="字符集和字符编码Unicode和UTF-8的关系">
+<meta name="twitter:description" content="String首先从String对象说起，String对象的组成元素是一个char组数char 在Java是占用两个字节，采用Unicode编码。这时候字符集的概念就出来了。 字符集charset字符集，可以理解成是一个二维表，它有id和name两个字段，或类似key-value的映射关系，其中key是编号，value是对应的字符而这个二维表，是不依赖于任何编程语言，独立的映射关系。 在String">
 
 
 
@@ -120,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://zhangxh20.github.io/archives/2017/06/"/>
+  <link rel="canonical" href="http://zhangxh20.github.io/2017/06/15/unicodeutf8/"/>
 
 
 
 
 
-  <title> 归档 | 张贤河 </title>
+  <title> 字符集和字符编码Unicode和UTF-8的关系 | 张贤河 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -151,7 +156,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -245,140 +250,159 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 3 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/15/unicodeutf8/" itemprop="url">
-              
-                <span itemprop="name">字符集和字符编码Unicode和UTF-8的关系</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-15T20:00:00+08:00"
-              content="2017-06-15" >
-          06-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/13/buffer/" itemprop="url">
-              
-                <span itemprop="name">Java NIO中的Buffer</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-13T12:07:39+08:00"
-              content="2017-06-13" >
-          06-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/09/methodhandle/" itemprop="url">
-              
-                <span itemprop="name">MethodHandle</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-09T18:07:39+08:00"
-              content="2017-06-09" >
-          06-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/15/unicodeutf8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhangxianhe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张贤河">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                字符集和字符编码Unicode和UTF-8的关系
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-15T20:00:00+08:00">
+                2017-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>首先从String对象说起，String对象的组成元素是一个char组数<br>char 在Java是占用两个字节，采用Unicode编码。这时候字符集的概念就出来了。</p>
+<h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p>charset字符集，可以理解成是一个二维表，它有id和name两个字段，或类似key-value的映射关系，其中key是编号，value是对应的字符<br>而这个二维表，是不依赖于任何编程语言，独立的映射关系。</p>
+<p>在String中，在表示字符串，都是根据它char类型的编码，找对对应的字符，连在一起就形成字符串。</p>
+<p>一个String字符串的长度，取决于字符个数，也就是char[] 数组的唱的，例如”zhang”，这个字符串有5个字符，所以长度是5。每个char占用2个字节空间，所以整体占用10个字节。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/13/buffer/" rel="next" title="Java NIO中的Buffer">
+                <i class="fa fa-chevron-left"></i> Java NIO中的Buffer
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -386,6 +410,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -405,8 +433,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -459,6 +496,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">1.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符集"><span class="nav-number">2.</span> <span class="nav-text">字符集</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -566,11 +619,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
 
 
   
