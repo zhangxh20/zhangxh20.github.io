@@ -94,7 +94,7 @@
 <meta property="og:url" content="http://zhangxh20.github.io/2017/06/15/unicodeutf8/index.html">
 <meta property="og:site_name" content="张贤河">
 <meta property="og:description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。 String类　　首先从String对象说起，String对象的组成元素是一个char组">
-<meta property="og:updated_time" content="2017-06-21T15:01:10.517Z">
+<meta property="og:updated_time" content="2017-06-23T14:23:10.506Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字符集和字符编码Unicode和UTF-8的关系">
 <meta name="twitter:description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。 String类　　首先从String对象说起，String对象的组成元素是一个char组">
@@ -339,8 +339,7 @@
 <li><code>byte [] getBytes(Charset charset)</code> 获取字节数组，返回的是byte数组，需要指定字符编码，根据字符编码不同，返回的字节数组的内容也不同。<br><code>char[]</code>和<code>byte[]</code>的区别，正好是字符集和字符编码的区别</li>
 </ul>
 <h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p>　　charset字符集，可以认为成是一个二维表，它有id和name两个字段，或类似key-value的映射关系，其中id(或key)是编号，name（或value）是对应的字符<br>而这个二维表，是不依赖于任何编程语言，独立存在的映射关系。<br>字符集在计算机早期用的是<code>ASCII</code>编码，范围是0-127。例如编号97，对应的字符是’a’，操作系统在显示字符时，通过字符编号97，到字符集里找到字符’a’，然后把它显示出来。<br>至于为何会显示’a’这个字符这样的形状，那属于操作系统在处理字符的问题，安装完操作系统，就能够显示这样形状。</p>
-<p>　　<code>ASCII</code>字符集的范围只有0-127，就算扩展的<code>ASCII</code>也只有0-255个字符，显然只够用来显示英文字母。<br>为了能够显示全世界各个国家的语言文字，Unicode就产生了。<br>Unicode的范围0-65535，相当于需要用两个字节才能表示。</p>
-<p>　　在String中，每一个char,都是根据它char类型的编码(char可以看做是一个双字节的整型)，找对对应的字符，连在一起就形成字符串。</p>
+<p>　　<code>ASCII</code>字符集的范围只有0-127，就算扩展的<code>ASCII</code>也只有0-255个字符，显然只够用来显示英文字母。<br>为了能够显示全世界各个国家的语言文字，Unicode就产生了。<br>　　在String中，每一个char,都是根据它char类型的编码(char可以看做是一个双字节的整型)，找对对应的字符，连在一起就形成字符串。</p>
 <p>一个String字符串的长度，取决于字符个数，也就是char[] 数组的长度，例如”zhang”，这个字符串有5个字符，所以长度是5。每个char占用2个字节空间，所以整体占用10个字节。</p>
 <h2 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h2><p>　　有了字符集的概念，要怎么在计算机表示，就需要指定对应的编码。<br>说到这肯定有想到，既然字符集里，每一个字符都对应一个编号，那直接在计算机里用这个编号表示这个字符，不就可以了？<br>没错下面要说得ASCII编码就是这样表示。</p>
 <ul>
