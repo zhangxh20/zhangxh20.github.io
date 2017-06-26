@@ -257,6 +257,127 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/26/springboot/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhangxianhe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张贤河">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/26/springboot/" itemprop="url">
+                  Spring Boot
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-26T21:11:25+08:00">
+                2017-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Spring-Boot的理解"><a href="#Spring-Boot的理解" class="headerlink" title="Spring Boot的理解"></a>Spring Boot的理解</h1><p>以前开发基于SpringMVC的web程序，需要运行在专门的容器里（例如Tomcat），然后从web.xml开始，添加Spring相关的配置。这些配置很多都是固定，或者约定俗成的，但是配置也是比较繁琐。所以Spring Boot就是为了简化这些配置，程序启动时，就创建了一些默认的配置。开发人员只需很少配置，可以直接使用，运行时直接可以用java -jar 方式来运行Spring Boot程序</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/15/unicodeutf8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -347,19 +468,16 @@
 <ul>
 <li><p><strong>ASCII</strong><br>ASCII字符集，只需一个字节就能够编码。所以ASCII字符集和字符编码是完全一致的，编码规则完全按照字符所在的编号。比如字符’a’在ASCII字符集里是97，所以编码后，它在计算的表示就是97。</p>
 </li>
-<li><p><strong>Unicode</strong><br>Unicode是字符集，最新版的<code>Unicode</code>10.0，已经收录了136,755个字符，超过2个字节</p>
+<li><p><strong>Unicode</strong><br>Unicode是字符集，最新版的<code>Unicode</code>10.0，已经收录了136,755个字符，超过2个字节。</p>
 </li>
 <li><p><strong>UTF-8</strong><br>UTF-16采用两个字节表示一个字符，虽然在表示上非常简单方便，但是也有其缺点，有很很大一部分字符用一个字节就可以表示的现在要用两个字节表示，存储空间上翻倍增长，这样会增加网络传输的流量。而UTF-8采用了一种变长技术，每个编码区域有不同的字码长度。不同类型的字符可以有1~6个字节组成。</p>
 </li>
 </ul>
 <p>　　UTF-8有以下编码规则：</p>
 <ol>
-<li><p>如果一个字节，最高位（第8位）为0，表示这是一个ASCII字符，所以UTF-8可以兼容ASCII。</p>
-</li>
-<li><p>如果一个字节，以11开头，连续的1的个数暗示这个字符的字节数，例如：110xxxxx代表它是双字节UTF-8字符的首字节。</p>
-</li>
-<li><p>如果一个字节，以10开始，表示它不是首字节，需要向前查找才能得到当前字符的首字节。</p>
-</li>
+<li>如果一个字节，最高位（第8位）为0，表示这是一个ASCII字符，所以UTF-8可以兼容ASCII。</li>
+<li>如果一个字节，以11开头，连续的1的个数暗示这个字符的字节数，例如：110xxxxx代表它是双字节UTF-8字符的首字节。</li>
+<li>如果一个字节，以10开始，表示它不是首字节，需要向前查找才能得到当前字符的首字节。</li>
 </ol>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li>《深入分析Java Web技术内幕》</li>
@@ -742,7 +860,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -755,7 +873,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
