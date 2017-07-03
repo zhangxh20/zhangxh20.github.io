@@ -89,7 +89,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="张贤河">
-<meta property="og:url" content="http://zhangxh20.github.io/archives/index.html">
+<meta property="og:url" content="http://zhangxh20.github.io/page/2/index.html">
 <meta property="og:site_name" content="张贤河">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="张贤河">
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://zhangxh20.github.io/archives/"/>
+  <link rel="canonical" href="http://zhangxh20.github.io/page/2/"/>
 
 
 
 
 
-  <title> 归档 | 张贤河 </title>
+  <title> 张贤河 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -151,7 +151,9 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -244,218 +246,160 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
+  <section id="posts" class="posts-expand">
+    
+      
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  
 
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 6 篇日志。 继续努力。
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/09/methodhandle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhangxianhe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张贤河">
     </span>
 
     
+      <header class="post-header">
 
-      
-      
-      
-
-      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/09/methodhandle/" itemprop="url">
+                  MethodHandle
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-09T18:07:39+08:00">
+                2017-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
         </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
         
-            <a class="post-title-link" href="/2017/07/03/asyncservlet/" itemprop="url">
-              
-                <span itemprop="name">Java Servlet异步处理和非阻塞I/O</span>
-              
-            </a>
+          
+            <p>JDK7为间接调用方法引入新的API,在<code>java.lang.invoke</code>包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重</p>
+<h2 id="主要的类"><a href="#主要的类" class="headerlink" title="主要的类"></a>主要的类</h2><h3 id="MethodHandle"><a href="#MethodHandle" class="headerlink" title="MethodHandle"></a>MethodHandle</h3><p>方法句柄、对可直接执行的方法的类型化引用，能够安全调用方法的对象。<br><code>MethodHandle</code> 是抽象类，无法直接实例化，需通过<code>MethodHandles.Lookup</code>的工厂方法来创建</p>
+<h3 id="MethodType"><a href="#MethodType" class="headerlink" title="MethodType"></a>MethodType</h3><p>每个方法句柄都有一个<code>MethodType</code>实例，用来指明方法的返回类型和参数类型。</p>
+<ul>
+<li><code>static MethodType methodType(Class&lt;?&gt; rtype, Class&lt;?&gt; ptype0, Class&lt;?&gt;... ptypes)</code><br>第一次参数是返回类型，后面的剩余参数是方法的参数类型</li>
+</ul>
+<h3 id="MethodHandles"><a href="#MethodHandles" class="headerlink" title="MethodHandles"></a>MethodHandles</h3><p>这个类只包含操作或返回方法句柄的静态方法。它们分为以下几类: </p>
+<ul>
+<li>查找方法，帮助创建方法和字段的方法句柄。</li>
+<li>组合方法，将先前的方法合并或转换成新的方法。</li>
+<li>其他工厂方法来创建方法来模拟其他常见的JVM操作或控制流模式</li>
+</ul>
+<h3 id="MethodHandles-Lookup"><a href="#MethodHandles-Lookup" class="headerlink" title="MethodHandles.Lookup"></a>MethodHandles.Lookup</h3><p>创建<code>MethodHandle</code>只想的工厂方法查找类</p>
+<ul>
+<li><code>MethodHandle findVirtual(Class&lt;?&gt; refc, String name, MethodType type)</code>查找方法名为name的方法</li>
+<li><code>MethodHandle findStatic(Class&lt;?&gt; refc, String name, MethodType type)</code>查找静态方法</li>
+<li><code>MethodHandle findSetter(Class&lt;?&gt; refc, String name, Class&lt;?&gt; type)</code>查找setter方法,name是该属性的名称，不是方法名称</li>
+</ul>
+<h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><ul>
+<li>获取String类的replace方法，并传参调用<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">MethodHandles.Lookup lookup = MethodHandles.lookup();</div><div class="line">MethodType mt = MethodType.methodType(String.class, <span class="keyword">char</span>.class, <span class="keyword">char</span>.class);</div><div class="line">MethodHandle mh = lookup.findVirtual(String.class, <span class="string">"replace"</span>, mt);</div><div class="line">String s = (String) mh.invokeExact(<span class="string">"daddy"</span>,<span class="string">'d'</span>,<span class="string">'n'</span>);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>《Java程序员修炼之道》</li>
+<li>Java SE 8 API Documentation</li>
+</ul>
+
+          
         
-      </h1>
+      
+    </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-03T21:11:25+08:00"
-              content="2017-07-03" >
-          07-03
-        </time>
-      </div>
+    <div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </article>
 
 
-
     
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/29/springbootdetail/" itemprop="url">
-              
-                <span itemprop="name">Spring Boot启动流程源码分析</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-29T21:11:25+08:00"
-              content="2017-06-29" >
-          06-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/26/springboot/" itemprop="url">
-              
-                <span itemprop="name">Spring Boot快速入门</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-26T21:11:25+08:00"
-              content="2017-06-26" >
-          06-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/15/unicodeutf8/" itemprop="url">
-              
-                <span itemprop="name">字符集和字符编码Unicode和UTF-8的关系</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-15T20:00:00+08:00"
-              content="2017-06-15" >
-          06-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/13/buffer/" itemprop="url">
-              
-                <span itemprop="name">Java NIO中的Buffer</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-13T12:07:39+08:00"
-              content="2017-06-13" >
-          06-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
   </nav>
-
 
 
 
@@ -644,12 +588,6 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
-
 
   
 

@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。 String类　　首先从String对象说起，String对象的组成元素是一个char组">
+<meta name="description" content="Java Servlet的注解方式创建　　Java Servlet在3.0开始支持注解配置，以前在web.xml配置的信息，可以用注解的方式。 注册监听器  123456import java.servlet.annotation.WebListener;import java.servlet.ServletContextListener;@WebListenerpublic class Simp">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="字符集和字符编码Unicode和UTF-8的关系">
-<meta property="og:url" content="http://zhangxh20.github.io/2017/06/15/unicodeutf8/index.html">
+<meta property="og:title" content="Java Servlet异步处理和非阻塞I&#x2F;O">
+<meta property="og:url" content="http://zhangxh20.github.io/2017/07/03/asyncservlet/index.html">
 <meta property="og:site_name" content="张贤河">
-<meta property="og:description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。 String类　　首先从String对象说起，String对象的组成元素是一个char组">
-<meta property="og:updated_time" content="2017-06-23T14:46:52.536Z">
+<meta property="og:description" content="Java Servlet的注解方式创建　　Java Servlet在3.0开始支持注解配置，以前在web.xml配置的信息，可以用注解的方式。 注册监听器  123456import java.servlet.annotation.WebListener;import java.servlet.ServletContextListener;@WebListenerpublic class Simp">
+<meta property="og:updated_time" content="2017-07-03T15:11:26.794Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="字符集和字符编码Unicode和UTF-8的关系">
-<meta name="twitter:description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。 String类　　首先从String对象说起，String对象的组成元素是一个char组">
+<meta name="twitter:title" content="Java Servlet异步处理和非阻塞I&#x2F;O">
+<meta name="twitter:description" content="Java Servlet的注解方式创建　　Java Servlet在3.0开始支持注解配置，以前在web.xml配置的信息，可以用注解的方式。 注册监听器  123456import java.servlet.annotation.WebListener;import java.servlet.ServletContextListener;@WebListenerpublic class Simp">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://zhangxh20.github.io/2017/06/15/unicodeutf8/"/>
+  <link rel="canonical" href="http://zhangxh20.github.io/2017/07/03/asyncservlet/"/>
 
 
 
 
 
-  <title> 字符集和字符编码Unicode和UTF-8的关系 | 张贤河 </title>
+  <title> Java Servlet异步处理和非阻塞I/O | 张贤河 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +260,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/15/unicodeutf8/">
+    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/07/03/asyncservlet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhangxianhe">
@@ -281,7 +281,7 @@
             
             
               
-                字符集和字符编码Unicode和UTF-8的关系
+                Java Servlet异步处理和非阻塞I/O
               
             
           </h1>
@@ -296,8 +296,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-15T20:00:00+08:00">
-                2017-06-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T21:11:25+08:00">
+                2017-07-03
               </time>
             
 
@@ -332,33 +332,20 @@
       
 
       
-        <h2 id="字符集和字符编码的关系"><a href="#字符集和字符编码的关系" class="headerlink" title="字符集和字符编码的关系"></a>字符集和字符编码的关系</h2><p>　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。<br>其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。</p>
-<h2 id="String类"><a href="#String类" class="headerlink" title="String类"></a>String类</h2><p>　　首先从String对象说起，String对象的组成元素是一个char组数<br>char 在Java是占用两个字节，采用Unicode字符集<br>　　看看String的两个方法：</p>
+        <h1 id="Java-Servlet的注解方式创建"><a href="#Java-Servlet的注解方式创建" class="headerlink" title="Java Servlet的注解方式创建"></a>Java Servlet的注解方式创建</h1><p>　　Java Servlet在3.0开始支持注解配置，以前在web.xml配置的信息，可以用注解的方式。</p>
+<p><strong>注册监听器</strong> </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.servlet.annotation.WebListener;</div><div class="line"><span class="keyword">import</span> java.servlet.ServletContextListener;</div><div class="line"></div><div class="line"><span class="meta">@WebListener</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleServletListener</span> <span class="keyword">implements</span> <span class="title">ServletContextListener</span> </span>&#123;</div><div class="line">...</div></pre></td></tr></table></figure>
+<p><strong>配置过滤器</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> javax.servlet.Filter;</div><div class="line"><span class="keyword">import</span> javax.servlet.annotation.Webfilter;</div><div class="line"><span class="keyword">import</span> javax.servlet.annotation.WebInitParam;</div><div class="line"></div><div class="line"><span class="meta">@WebFilter</span>(filterName=<span class="string">"time"</span>,</div><div class="line">urlPatterns=&#123;<span class="string">"*/*"</span>&#125;,</div><div class="line">initParams= &#123;<span class="meta">@WebInitParam</span>(name = <span class="string">"mood"</span>,value = <span class="string">"awake"</span>)&#125;)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimeOfDayFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p><strong>配置Servlet</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.servlet.annotation.WebServlet;</div><div class="line"><span class="keyword">import</span> java.servlet.http.HttpServlet;</div><div class="line"></div><div class="line"><span class="meta">@WebServlet</span>(<span class="string">"/report"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoodServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span></div></pre></td></tr></table></figure></p>
+<h1 id="异步处理"><a href="#异步处理" class="headerlink" title="异步处理"></a>异步处理</h1><p>　　应用服务器中的 web容器通常对各个客户端情求分别使用一个服务器线程。在工作负载很繁重的情况下,容器常要大量线程来为所有客户端请求服务。可扩展性限制包括内存用尽,或容器线程池耗尽。为了创建可扩展的 web应用,必须确保与请求关联的线程不会空闲, 使容器可以用它们处理新的请求。有时与请求关联的线程可能会空闲, 这有两种常见的情况:</p>
 <ul>
-<li><code>char [] toCharArray()</code> 获取字符数组，返回的是char数字。</li>
-<li><code>byte [] getBytes(Charset charset)</code> 获取字节数组，返回的是byte数组，需要指定字符编码，根据字符编码不同，返回的字节数组的内容也不同。<br><code>char[]</code>和<code>byte[]</code>的区别，正好是字符集和字符编码的区别</li>
+<li>线程需要等待一个资源可用,或者在建立响应之前处理数据。例如,应用在生成响应之前可能需要査询一个数据库, 或者要从一个远程 web服务访问数据。</li>
+<li>线程生成响应之前需要等待一个事件。例如, 一个应用在生成响应之前可能必须等待一个 JMS消息、 来自另一个客户端的新信息, 或者队列中可用的一个新数据。</li>
 </ul>
-<h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p>　　charset字符集，可以认为成是一个二维表，它有id和name两个字段，或类似key-value的映射关系，其中id(或key)是编号，name（或value）是对应的字符<br>而这个二维表，是不依赖于任何编程语言，独立存在的映射关系。<br>字符集在计算机早期用的是<code>ASCII</code>编码，范围是0-127。例如编号97，对应的字符是’a’，操作系统在显示字符时，通过字符编号97，到字符集里找到字符’a’，然后把它显示出来。<br>至于为何会显示’a’这个字符这样的形状，那属于操作系统在处理字符的问题，安装完操作系统，就能够显示这样形状。</p>
-<p>　　<code>ASCII</code>字符集的范围只有0-127，就算扩展的<code>ASCII</code>也只有0-255个字符，显然只够用来显示英文字母。<br>为了能够显示全世界各个国家的语言文字，Unicode就产生了。<br>　　在String中，每一个char,都是根据它char类型的编码(char可以看做是一个双字节的整型)，找对对应的字符，连在一起就形成字符串。</p>
-<p>一个String字符串的长度，取决于字符个数，也就是char[] 数组的长度，例如”zhang”，这个字符串有5个字符，所以长度是5。每个char占用2个字节空间，所以整体占用10个字节。</p>
-<h2 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h2><p>　　有了字符集的概念，要怎么在计算机表示，就需要指定对应的编码。<br>说到这肯定有想到，既然字符集里，每一个字符都对应一个编号，那直接在计算机里用这个编号表示这个字符，不就可以了？<br>没错下面要说得ASCII编码就是这样表示。</p>
-<ul>
-<li><p><strong>ASCII</strong><br>ASCII字符集，只需一个字节就能够编码。所以ASCII字符集和字符编码是完全一致的，编码规则完全按照字符所在的编号。比如字符’a’在ASCII字符集里是97，所以编码后，它在计算的表示就是97。</p>
-</li>
-<li><p><strong>Unicode</strong><br>Unicode是字符集，最新版的<code>Unicode</code>10.0，已经收录了136,755个字符，超过2个字节。</p>
-</li>
-<li><p><strong>UTF-8</strong><br>UTF-16采用两个字节表示一个字符，虽然在表示上非常简单方便，但是也有其缺点，有很很大一部分字符用一个字节就可以表示的现在要用两个字节表示，存储空间上翻倍增长，这样会增加网络传输的流量。而UTF-8采用了一种变长技术，每个编码区域有不同的字码长度。不同类型的字符可以有1~6个字节组成。</p>
-</li>
-</ul>
-<p>　　UTF-8有以下编码规则：</p>
-<ol>
-<li>如果一个字节，最高位（第8位）为0，表示这是一个ASCII字符，所以UTF-8可以兼容ASCII。</li>
-<li>如果一个字节，以11开头，连续的1的个数暗示这个字符的字节数，例如：110xxxxx代表它是双字节UTF-8字符的首字节。</li>
-<li>如果一个字节，以10开始，表示它不是首字节，需要向前查找才能得到当前字符的首字节。</li>
-</ol>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li>《深入分析Java Web技术内幕》</li>
-<li><a href="https://en.wikipedia.org/wiki/Unicode" title="Unicode" target="_blank" rel="external">Wikipedia Unicode</a> </li>
+<p>　　这些情況表示了限制 web应用可扩展性的一些阻塞操作。异步处理是指把这些阻塞操作分配给一个新线程, 而与请求美联的线程立即返回给容器 。</p>
+<h2 id="servlet中的异步处理"><a href="#servlet中的异步处理" class="headerlink" title="servlet中的异步处理"></a>servlet中的异步处理</h2><p>　　Java EE为 servlet和过滤器提供了异步处理支持。如果一个 servlet或过渡器在处理请求时达到一个可能的阻塞操作,它可以把这个操作分配到一个异步执行上下文,并将与请求联的线程立即返回到容器, 而不生成响应, 阻塞操作在异步执行上下文中的一个不同的线程中完成,这可能会生成一个响应,或者将请求分派给另一个servlet。<br>　　要在一个 servlet上启用异步处理.可以将<code>@Webservlet</code>注解的参数 <code>asyncsupported</code>设置为true,如下所示:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@WebServ</span>1et(urlPatterns=<span class="string">"/asynserv1et"</span> , asyncSupported=<span class="keyword">true</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AsyncServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span>&#123; </div><div class="line">.. </div><div class="line">&#125;</div></pre></td></tr></table></figure><br>　　<code>javax. servlet.Asynccontext</code>类提供了在服务方法中完成异步处理所需的功能为了得到 Asynccontext的一个实例,可以在服务方法的请求对象上调用<code>startAsync()</code>方法,例如:<code>AsynoContext  acontext  =  req. startAsync();</code><br>这个调用将请求置于异步模式. 并确保退出服务方法后不提交响应。 必须在异步上下文中完成阻塞操作之后或者将请求分派到另一个 servlel之后再生成响应。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@WebServ</span>1et(urlPatterns=&#123;<span class="string">"/asyncservlet"</span>&#125;), asyncSupported=<span class="keyword">true</span>) </div><div class="line"><span class="keyword">public</span> classe AsyncServlet extends HttpServlet &#123;</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> doGetlHttpServletRequest request,</div><div class="line">			HttpServletResponse response)  &#123;</div><div class="line">		<span class="keyword">final</span> AsyncContext acontext二 request.startAsyncl1;</div><div class="line">		acontext.start(<span class="keyword">new</span> Runnablel() &#123;</div><div class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;    </div><div class="line">				HttpServletResponse response= acontext.getResponsel();</div><div class="line">				acontext.cmplete()</div><div class="line">			&#125;</div><div class="line">			...</div></pre></td></tr></table></figure></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li>《Java EE 7权威指南》</li>
 </ul>
 
       
@@ -402,8 +389,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/13/buffer/" rel="next" title="Java NIO中的Buffer">
-                <i class="fa fa-chevron-left"></i> Java NIO中的Buffer
+              <a href="/2017/06/29/springbootdetail/" rel="next" title="Spring Boot启动流程源码分析">
+                <i class="fa fa-chevron-left"></i> Spring Boot启动流程源码分析
               </a>
             
           </div>
@@ -411,10 +398,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/26/springboot/" rel="prev" title="Spring Boot快速入门">
-                Spring Boot快速入门 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -534,7 +517,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符集和字符编码的关系"><span class="nav-number">1.</span> <span class="nav-text">字符集和字符编码的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String类"><span class="nav-number">2.</span> <span class="nav-text">String类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符集"><span class="nav-number">3.</span> <span class="nav-text">字符集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符编码"><span class="nav-number">4.</span> <span class="nav-text">字符编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-Servlet的注解方式创建"><span class="nav-number">1.</span> <span class="nav-text">Java Servlet的注解方式创建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异步处理"><span class="nav-number">2.</span> <span class="nav-text">异步处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#servlet中的异步处理"><span class="nav-number">2.1.</span> <span class="nav-text">servlet中的异步处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>

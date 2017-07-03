@@ -112,7 +112,7 @@
       applicationID: '',
       apiKey: '',
       indexName: '',
-      hits: {"per_page":5},
+      hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
   };
@@ -257,6 +257,141 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/07/03/asyncservlet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhangxianhe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张贤河">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/03/asyncservlet/" itemprop="url">
+                  Java Servlet异步处理和非阻塞I/O
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T21:11:25+08:00">
+                2017-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Java-Servlet的注解方式创建"><a href="#Java-Servlet的注解方式创建" class="headerlink" title="Java Servlet的注解方式创建"></a>Java Servlet的注解方式创建</h1><p>　　Java Servlet在3.0开始支持注解配置，以前在web.xml配置的信息，可以用注解的方式。</p>
+<p><strong>注册监听器</strong> </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.servlet.annotation.WebListener;</div><div class="line"><span class="keyword">import</span> java.servlet.ServletContextListener;</div><div class="line"></div><div class="line"><span class="meta">@WebListener</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleServletListener</span> <span class="keyword">implements</span> <span class="title">ServletContextListener</span> </span>&#123;</div><div class="line">...</div></pre></td></tr></table></figure>
+<p><strong>配置过滤器</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> javax.servlet.Filter;</div><div class="line"><span class="keyword">import</span> javax.servlet.annotation.Webfilter;</div><div class="line"><span class="keyword">import</span> javax.servlet.annotation.WebInitParam;</div><div class="line"></div><div class="line"><span class="meta">@WebFilter</span>(filterName=<span class="string">"time"</span>,</div><div class="line">urlPatterns=&#123;<span class="string">"*/*"</span>&#125;,</div><div class="line">initParams= &#123;<span class="meta">@WebInitParam</span>(name = <span class="string">"mood"</span>,value = <span class="string">"awake"</span>)&#125;)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimeOfDayFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p><strong>配置Servlet</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.servlet.annotation.WebServlet;</div><div class="line"><span class="keyword">import</span> java.servlet.http.HttpServlet;</div><div class="line"></div><div class="line"><span class="meta">@WebServlet</span>(<span class="string">"/report"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoodServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span></div></pre></td></tr></table></figure></p>
+<h1 id="异步处理"><a href="#异步处理" class="headerlink" title="异步处理"></a>异步处理</h1><p>　　应用服务器中的 web容器通常对各个客户端情求分别使用一个服务器线程。在工作负载很繁重的情况下,容器常要大量线程来为所有客户端请求服务。可扩展性限制包括内存用尽,或容器线程池耗尽。为了创建可扩展的 web应用,必须确保与请求关联的线程不会空闲, 使容器可以用它们处理新的请求。有时与请求关联的线程可能会空闲, 这有两种常见的情况:</p>
+<ul>
+<li>线程需要等待一个资源可用,或者在建立响应之前处理数据。例如,应用在生成响应之前可能需要査询一个数据库, 或者要从一个远程 web服务访问数据。</li>
+<li>线程生成响应之前需要等待一个事件。例如, 一个应用在生成响应之前可能必须等待一个 JMS消息、 来自另一个客户端的新信息, 或者队列中可用的一个新数据。</li>
+</ul>
+<p>　　这些情況表示了限制 web应用可扩展性的一些阻塞操作。异步处理是指把这些阻塞操作分配给一个新线程, 而与请求美联的线程立即返回给容器 。</p>
+<h2 id="servlet中的异步处理"><a href="#servlet中的异步处理" class="headerlink" title="servlet中的异步处理"></a>servlet中的异步处理</h2><p>　　Java EE为 servlet和过滤器提供了异步处理支持。如果一个 servlet或过渡器在处理请求时达到一个可能的阻塞操作,它可以把这个操作分配到一个异步执行上下文,并将与请求联的线程立即返回到容器, 而不生成响应, 阻塞操作在异步执行上下文中的一个不同的线程中完成,这可能会生成一个响应,或者将请求分派给另一个servlet。<br>　　要在一个 servlet上启用异步处理.可以将<code>@Webservlet</code>注解的参数 <code>asyncsupported</code>设置为true,如下所示:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@WebServ</span>1et(urlPatterns=<span class="string">"/asynserv1et"</span> , asyncSupported=<span class="keyword">true</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AsyncServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span>&#123; </div><div class="line">.. </div><div class="line">&#125;</div></pre></td></tr></table></figure><br>　　<code>javax. servlet.Asynccontext</code>类提供了在服务方法中完成异步处理所需的功能为了得到 Asynccontext的一个实例,可以在服务方法的请求对象上调用<code>startAsync()</code>方法,例如:<code>AsynoContext  acontext  =  req. startAsync();</code><br>这个调用将请求置于异步模式. 并确保退出服务方法后不提交响应。 必须在异步上下文中完成阻塞操作之后或者将请求分派到另一个 servlel之后再生成响应。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@WebServ</span>1et(urlPatterns=&#123;<span class="string">"/asyncservlet"</span>&#125;), asyncSupported=<span class="keyword">true</span>) </div><div class="line"><span class="keyword">public</span> classe AsyncServlet extends HttpServlet &#123;</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> doGetlHttpServletRequest request,</div><div class="line">			HttpServletResponse response)  &#123;</div><div class="line">		<span class="keyword">final</span> AsyncContext acontext二 request.startAsyncl1;</div><div class="line">		acontext.start(<span class="keyword">new</span> Runnablel() &#123;</div><div class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;    </div><div class="line">				HttpServletResponse response= acontext.getResponsel();</div><div class="line">				acontext.cmplete()</div><div class="line">			&#125;</div><div class="line">			...</div></pre></td></tr></table></figure></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li>《Java EE 7权威指南》</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/29/springbootdetail/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -355,11 +490,12 @@
 <h2 id="loadFactoryNames"><a href="#loadFactoryNames" class="headerlink" title="loadFactoryNames()"></a>loadFactoryNames()</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title">loadFactoryNames</span><span class="params">(Class&lt;?&gt; factoryClass, ClassLoader classLoader)</span> </span>&#123;</div><div class="line">	String factoryClassName = factoryClass.getName();</div><div class="line">	<span class="keyword">try</span> &#123;</div><div class="line">		<span class="comment">// 获取所有jar包中的META-INF/spring.factories</span></div><div class="line">		Enumeration&lt;URL&gt; urls = (classLoader != <span class="keyword">null</span> ? classLoader.getResources(FACTORIES_RESOURCE_LOCATION) :</div><div class="line">				ClassLoader.getSystemResources(FACTORIES_RESOURCE_LOCATION));</div><div class="line">		List&lt;String&gt; result = <span class="keyword">new</span> ArrayList&lt;String&gt;();</div><div class="line">		<span class="keyword">while</span> (urls.hasMoreElements()) &#123;</div><div class="line">			URL url = urls.nextElement();</div><div class="line">			<span class="comment">// 从META-INF/spring.factories载入配置</span></div><div class="line">			Properties properties = PropertiesLoaderUtils.loadProperties(<span class="keyword">new</span> UrlResource(url));</div><div class="line">			<span class="comment">// 根据factoryClassName从配置中获取所有factoryClassNames（可能有多个）</span></div><div class="line">			String factoryClassNames = properties.getProperty(factoryClassName);</div><div class="line">			<span class="comment">// 多个factoryClassName，用逗号分隔，转成数组</span></div><div class="line">			result.addAll(Arrays.asList(StringUtils.commaDelimitedListToStringArray(factoryClassNames)));</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> result;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">catch</span> (IOException ex) &#123;</div><div class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Unable to load ["</span> + factoryClass.getName() +</div><div class="line">				<span class="string">"] factories from location ["</span> + FACTORIES_RESOURCE_LOCATION + <span class="string">"]"</span>, ex);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>　　获取所有jar包的META-INF/spring.factories文件,这个文件是一个properties型的配置文件。<br>　　根据factoryClassNames从配置文件里获取factoryClassNames，有可能是多个类名。所以调用StringUtils.commaDelimitedListToStringArray转成数组</p>
 <p><strong>Spring-Boot-1.5.4.RELEASE.jar里的META-INF/spring.factories文件信息</strong><br><img src="http://i114.photobucket.com/albums/n262/zhangxh20/images/1103_zpsavvkwshx.png~original" alt="spring.factories" title="spring.factories"> </p>
-<h2 id="run"><a href="#run" class="headerlink" title="run()"></a>run()</h2><p>　　上面的initialize()方法只是载入配置信息，没有执行任何Spring相关的调用，而run()才是真正的通过配置运行程序。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ConfigurableApplicationContext <span class="title">run</span><span class="params">(String... args)</span> </span>&#123;</div><div class="line">	StopWatch stopWatch = <span class="keyword">new</span> StopWatch();</div><div class="line">	stopWatch.start();</div><div class="line">	ConfigurableApplicationContext context = <span class="keyword">null</span>;</div><div class="line">	FailureAnalyzers analyzers = <span class="keyword">null</span>;</div><div class="line">	configureHeadlessProperty();</div><div class="line">	<span class="comment">// 从META-INF/spring.factories载入SpringApplicationRunListener型的类</span></div><div class="line">	SpringApplicationRunListeners listeners = getRunListeners(args);</div><div class="line">	listeners.starting();</div><div class="line">	<span class="keyword">try</span> &#123;</div><div class="line">		ApplicationArguments applicationArguments = <span class="keyword">new</span> DefaultApplicationArguments(</div><div class="line">				args);</div><div class="line">		<span class="comment">// 从运行环境获取参数</span></div><div class="line">		ConfigurableEnvironment environment = prepareEnvironment(listeners,</div><div class="line">				applicationArguments);</div><div class="line">		<span class="comment">// 打印Spring Boot的logo</span></div><div class="line">		Banner printedBanner = printBanner(environment);</div><div class="line">		<span class="comment">// 根据是否为Web环境，创建上下文</span></div><div class="line">		context = createApplicationContext();</div><div class="line">		analyzers = <span class="keyword">new</span> FailureAnalyzers(context);</div><div class="line">		<span class="comment">// 触发所有Initializer和Linstener</span></div><div class="line">		prepareContext(context, environment, listeners, applicationArguments,</div><div class="line">				printedBanner);</div><div class="line">		refreshContext(context);</div><div class="line">		afterRefresh(context, applicationArguments);</div><div class="line">		listeners.finished(context, <span class="keyword">null</span>);</div><div class="line">		stopWatch.stop();</div><div class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.logStartupInfo) &#123;</div><div class="line">			<span class="keyword">new</span> StartupInfoLogger(<span class="keyword">this</span>.mainApplicationClass)</div><div class="line">					.logStarted(getApplicationLog(), stopWatch);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> context;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">catch</span> (Throwable ex) &#123;</div><div class="line">		handleRunFailure(context, listeners, analyzers, ex);</div><div class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(ex);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="run"><a href="#run" class="headerlink" title="run()"></a>run()</h2><p>　　上面的initialize()方法只是载入配置信息，没有执行任何Spring相关的调用，而run()才是真正的通过配置运行程序。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ConfigurableApplicationContext <span class="title">run</span><span class="params">(String... args)</span> </span>&#123;</div><div class="line">	StopWatch stopWatch = <span class="keyword">new</span> StopWatch();</div><div class="line">	stopWatch.start();</div><div class="line">	ConfigurableApplicationContext context = <span class="keyword">null</span>;</div><div class="line">	FailureAnalyzers analyzers = <span class="keyword">null</span>;</div><div class="line">	configureHeadlessProperty();</div><div class="line">	<span class="comment">// 从META-INF/spring.factories载入SpringApplicationRunListener型的类</span></div><div class="line">	SpringApplicationRunListeners listeners = getRunListeners(args);</div><div class="line">	listeners.starting();</div><div class="line">	<span class="keyword">try</span> &#123;</div><div class="line">		ApplicationArguments applicationArguments = <span class="keyword">new</span> DefaultApplicationArguments(</div><div class="line">				args);</div><div class="line">		<span class="comment">// 从运行环境获取参数</span></div><div class="line">		ConfigurableEnvironment environment = prepareEnvironment(listeners,</div><div class="line">				applicationArguments);</div><div class="line">		<span class="comment">// 打印Spring Boot的logo</span></div><div class="line">		Banner printedBanner = printBanner(environment);</div><div class="line">		<span class="comment">// 根据是否为Web环境，创建上下文</span></div><div class="line">		context = createApplicationContext();</div><div class="line">		<span class="comment">// 从META-INF/spring.factories载入FailureAnalyzer型的类</span></div><div class="line">		analyzers = <span class="keyword">new</span> FailureAnalyzers(context);</div><div class="line">		<span class="comment">// 触发所有Initializer和Linstener</span></div><div class="line">		prepareContext(context, environment, listeners, applicationArguments,</div><div class="line">				printedBanner);</div><div class="line">		refreshContext(context);</div><div class="line">		afterRefresh(context, applicationArguments);</div><div class="line">		listeners.finished(context, <span class="keyword">null</span>);</div><div class="line">		stopWatch.stop();</div><div class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.logStartupInfo) &#123;</div><div class="line">			<span class="keyword">new</span> StartupInfoLogger(<span class="keyword">this</span>.mainApplicationClass)</div><div class="line">					.logStarted(getApplicationLog(), stopWatch);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> context;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">catch</span> (Throwable ex) &#123;</div><div class="line">		handleRunFailure(context, listeners, analyzers, ex);</div><div class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(ex);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <ul>
 <li>SpringApplicationRunListeners listeners = getRunListeners(args);这段也是从META-INF/spring.factories载入SpringApplicationRunListener型的类。</li>
 <li>ConfigurableEnvironment environment = prepareEnvironment(listeners, applicationArguments);这段是从运行环境获取参数，例如：activeProfiles，SystemEnvironment，SystemProperties等。</li>
 <li>createApplicationContext()，根据是否为web环境，创建不同的ApplicationContext。</li>
+<li>analyzers = new FailureAnalyzers(context)从META-INF/spring.factories载入FailureAnalyzer型的类，抛异常时的处理</li>
 <li>prepareContext,触发所有Initializer和Linstener（这两种类型的对象来自于spring.factories）</li>
 </ul>
 <h2 id="printBanner"><a href="#printBanner" class="headerlink" title="printBanner()"></a>printBanner()</h2><p>打印Spring Boot的logo</p>
@@ -370,6 +506,7 @@
 <li>applyInitializers触发所有ApplicationContextInitializer类的initialize()方法</li>
 <li>listeners.contextLoaded(context)// 触发所有SpringApplicationRunListeners的contextLoaded事件 </li>
 </ul>
+<h2 id="refresh"><a href="#refresh" class="headerlink" title="refresh()"></a>refresh()</h2><p>载入Spring Bean，相当于Spring容器启动做的一些处理的，比如prepareBeanFactory(),postProcessBeanFactory()，registerBeanPostProcessors等。<br>具体的可以了解Spring的启动流程。</p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
 <li>Spring Boot 1.5.4.RELEASE源码</li>
 </ul>
@@ -850,155 +987,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/09/methodhandle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zhangxianhe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张贤河">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/09/methodhandle/" itemprop="url">
-                  MethodHandle
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-09T18:07:39+08:00">
-                2017-06-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>JDK7为间接调用方法引入新的API,在<code>java.lang.invoke</code>包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重</p>
-<h2 id="主要的类"><a href="#主要的类" class="headerlink" title="主要的类"></a>主要的类</h2><h3 id="MethodHandle"><a href="#MethodHandle" class="headerlink" title="MethodHandle"></a>MethodHandle</h3><p>方法句柄、对可直接执行的方法的类型化引用，能够安全调用方法的对象。<br><code>MethodHandle</code> 是抽象类，无法直接实例化，需通过<code>MethodHandles.Lookup</code>的工厂方法来创建</p>
-<h3 id="MethodType"><a href="#MethodType" class="headerlink" title="MethodType"></a>MethodType</h3><p>每个方法句柄都有一个<code>MethodType</code>实例，用来指明方法的返回类型和参数类型。</p>
-<ul>
-<li><code>static MethodType methodType(Class&lt;?&gt; rtype, Class&lt;?&gt; ptype0, Class&lt;?&gt;... ptypes)</code><br>第一次参数是返回类型，后面的剩余参数是方法的参数类型</li>
-</ul>
-<h3 id="MethodHandles"><a href="#MethodHandles" class="headerlink" title="MethodHandles"></a>MethodHandles</h3><p>这个类只包含操作或返回方法句柄的静态方法。它们分为以下几类: </p>
-<ul>
-<li>查找方法，帮助创建方法和字段的方法句柄。</li>
-<li>组合方法，将先前的方法合并或转换成新的方法。</li>
-<li>其他工厂方法来创建方法来模拟其他常见的JVM操作或控制流模式</li>
-</ul>
-<h3 id="MethodHandles-Lookup"><a href="#MethodHandles-Lookup" class="headerlink" title="MethodHandles.Lookup"></a>MethodHandles.Lookup</h3><p>创建<code>MethodHandle</code>只想的工厂方法查找类</p>
-<ul>
-<li><code>MethodHandle findVirtual(Class&lt;?&gt; refc, String name, MethodType type)</code>查找方法名为name的方法</li>
-<li><code>MethodHandle findStatic(Class&lt;?&gt; refc, String name, MethodType type)</code>查找静态方法</li>
-<li><code>MethodHandle findSetter(Class&lt;?&gt; refc, String name, Class&lt;?&gt; type)</code>查找setter方法,name是该属性的名称，不是方法名称</li>
-</ul>
-<h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><ul>
-<li>获取String类的replace方法，并传参调用<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">MethodHandles.Lookup lookup = MethodHandles.lookup();</div><div class="line">MethodType mt = MethodType.methodType(String.class, <span class="keyword">char</span>.class, <span class="keyword">char</span>.class);</div><div class="line">MethodHandle mh = lookup.findVirtual(String.class, <span class="string">"replace"</span>, mt);</div><div class="line">String s = (String) mh.invokeExact(<span class="string">"daddy"</span>,<span class="string">'d'</span>,<span class="string">'n'</span>);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li>《Java程序员修炼之道》</li>
-<li>Java SE 8 API Documentation</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1041,7 +1036,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
