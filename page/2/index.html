@@ -257,6 +257,161 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/13/buffer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhangxianhe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张贤河">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/13/buffer/" itemprop="url">
+                  Java NIO中的Buffer
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-13T12:07:39+08:00">
+                2017-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种,我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如<code>ByteBuffer</code>是byte数组，<code>IntBuffer</code>是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除操作。</p>
+<p>　　Buffer可以理解成是一个容器，可以往容器里写入数据，也可以从容器中读取数据，可以一个字节一个字节的读写，也可以多个字节读写，可以在写的途中切换为读，读到一半又切换到写，等等。。。</p>
+<p>　　Buffer有以下几个属性:</p>
+<ul>
+<li><code>int mark</code> 标记</li>
+<li><code>int position</code> 位置</li>
+<li><code>int limit</code>限制</li>
+<li><p><code>int capacity</code>缓冲区的容量，Buffer的容量是固定的，在创建Buffer对象时，制定容量大小。</p>
+<p>　　这几个属性，有什么作用，用在什么地方，为何设置这4个属性。其实不用先理解，在了解<code>reset()</code>,<code>flip()</code>等方法后，就会明白这四个属性的用处。</p>
+</li>
+</ul>
+<h2 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h2><h3 id="mark、reset"><a href="#mark、reset" class="headerlink" title="mark、reset"></a>mark、reset</h3><ul>
+<li><p><code>mark()</code>在Buffer当前的位置设置标记</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">mark</span><span class="params">()</span> </span>&#123;</div><div class="line">    mark = position;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>reset()</code>重置Buffer当前的位置为上一次的标记</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">reset</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> m = mark;</div><div class="line">    <span class="keyword">if</span> (m &lt; <span class="number">0</span>)</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidMarkException();</div><div class="line">    position = m;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>　　这两个方法的使用场景，从Buffer读取n个字节数据，结果读出来的数据长度比n小（比如网络是拆包问题），这时候会重新再读一次，调用<code>reset()</code>方法。但并不是所有读操作是从位置0开始读，所以在<code>reset()</code>先设置一个标记，调用<code>mark()</code>，最后position = mark，就是从标记的mark位置开始读。</p>
+<h3 id="clear-flip-rewind"><a href="#clear-flip-rewind" class="headerlink" title="clear,flip, rewind"></a>clear,flip, rewind</h3><ul>
+<li><code>clear()</code>清除Buffer<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">clear</span><span class="params">()</span> </span>&#123;</div><div class="line">    position = <span class="number">0</span>;</div><div class="line">    limit = capacity;</div><div class="line">    mark = -<span class="number">1</span>;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+<li><code>flip()</code>反转Buffer,何谓“反转”？在执行完写操作之后，调用调用flip()为下次的读操作准备。<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">flip</span><span class="params">()</span> </span>&#123;</div><div class="line">    limit = position;</div><div class="line">    position = <span class="number">0</span>;</div><div class="line">    mark = -<span class="number">1</span>;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+　　使用场景：在进行完写操作后，写入100个字节，所以当前位置position=100，为了下次读操作，读出来是这100个字节数据，所以limit也设为100，限制最多读到100个字节。下次读是从位置0开始，所以position=0。<br>　　如果不做flip操作，读到的将是position到capacity之间的错误内容。</li>
+<li><code>rewind()</code>重绕Buffer，可以发现<code>rewind()</code>比<code>flip()</code>少了个步骤limit = positon。<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">rewind</span><span class="params">()</span> </span>&#123;</div><div class="line">    position = <span class="number">0</span>;</div><div class="line">    mark = -<span class="number">1</span>;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+　　使用场景：buffer.get(array)，把buffer的数据复制到array数组里，会调用buffer的get()方法。get()是从position开始复制,最多limit个，所以只需positon设置为0。</li>
+</ul>
+<p><strong>不变式</strong><br>标记、位置、限制和容量值遵守以下不变式： </p>
+<p>0 &lt;= 标记 &lt;= 位置 &lt;= 限制 &lt;= 容量<br>新创建的缓冲区总有一个 0 位置和一个未定义的标记。初始限制可以为 0，也可以为其他值，这取决于缓冲区类型及其构建方式。一般情况下，缓冲区的初始内容是未定义的。 </p>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>　　<code>Buffer</code>不是线程安全的，被多个线程使用时，需要加同步。</p>
+<h2 id="ByteBuffer"><a href="#ByteBuffer" class="headerlink" title="ByteBuffer"></a>ByteBuffer</h2><p>　　<code>ByteBuffer</code>字节缓冲区，即每次调用get()或者put()操作的数据最小单位是byte，理IntBuffer、LongBuffer、DoubleBuffer以此类推。例如LongBuffer put()最小的单位是8个字节的long数据。日常开发中，ByteBuffer使用的会比较多，其他类型Buffer很少使用。<br>　　事实上<code>ByteBuffer</code>也可以用来表示其他类型Buffer，比如IntBuffer的get()，可以用ByteBuffer的getInt()，两个实现效果一样。</p>
+<h3 id="堆内存和直接内存"><a href="#堆内存和直接内存" class="headerlink" title="堆内存和直接内存"></a>堆内存和直接内存</h3><p>　　Buffer在创建时，必须指定容量大小，还有分配内存的类型，有两种堆内存和直接内存，直接可以理解为堆外的内存空间，区别就是，直接内存是不受GC管理 </p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>《Netty权威指南》</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/09/methodhandle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -443,7 +598,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
