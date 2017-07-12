@@ -94,7 +94,7 @@
 <meta property="og:url" content="http://zhangxh20.github.io/2017/06/15/unicodeutf8/index.html">
 <meta property="og:site_name" content="张贤河">
 <meta property="og:description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。 String类　　首先从String对象说起，String对象的组成元素是一个char组">
-<meta property="og:updated_time" content="2017-06-23T14:46:52.536Z">
+<meta property="og:updated_time" content="2017-07-12T14:53:00.377Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字符集和字符编码Unicode和UTF-8的关系">
 <meta name="twitter:description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。 String类　　首先从String对象说起，String对象的组成元素是一个char组">
@@ -344,6 +344,8 @@
 <h2 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h2><p>　　有了字符集的概念，要怎么在计算机表示，就需要指定对应的编码。<br>说到这肯定有想到，既然字符集里，每一个字符都对应一个编号，那直接在计算机里用这个编号表示这个字符，不就可以了？<br>没错下面要说得ASCII编码就是这样表示。</p>
 <ul>
 <li><p><strong>ASCII</strong><br>ASCII字符集，只需一个字节就能够编码。所以ASCII字符集和字符编码是完全一致的，编码规则完全按照字符所在的编号。比如字符’a’在ASCII字符集里是97，所以编码后，它在计算的表示就是97。</p>
+</li>
+<li><p><strong>ISO-8859-1</strong><br>　　128个字符显然是不够用，于是ISO组织在ASCII码基础上有指定了一系列标准来扩展ASCII涵盖了大多数西欧语言字符，ISO-8859-1仍然是但字节编码，总共256个字符。</p>
 </li>
 <li><p><strong>Unicode</strong><br>Unicode是字符集，最新版的<code>Unicode</code>10.0，已经收录了136,755个字符，超过2个字节。</p>
 </li>
