@@ -257,6 +257,156 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/15/unicodeutf8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhangxianhe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张贤河">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/15/unicodeutf8/" itemprop="url">
+                  字符集和字符编码Unicode和UTF-8的关系
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-15T20:00:00+08:00">
+                2017-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="字符集和字符编码的关系"><a href="#字符集和字符编码的关系" class="headerlink" title="字符集和字符编码的关系"></a>字符集和字符编码的关系</h2><p>　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。<br>其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。</p>
+<h2 id="String类"><a href="#String类" class="headerlink" title="String类"></a>String类</h2><p>　　首先从String对象说起，String对象的组成元素是一个char组数<br>char 在Java是占用两个字节，采用Unicode字符集<br>　　看看String的两个方法：</p>
+<ul>
+<li><code>char [] toCharArray()</code> 获取字符数组，返回的是char数字。</li>
+<li><code>byte [] getBytes(Charset charset)</code> 获取字节数组，返回的是byte数组，需要指定字符编码，根据字符编码不同，返回的字节数组的内容也不同。<br><code>char[]</code>和<code>byte[]</code>的区别，正好是字符集和字符编码的区别</li>
+</ul>
+<h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p>　　charset字符集，可以认为成是一个二维表，它有id和name两个字段，或类似key-value的映射关系，其中id(或key)是编号，name（或value）是对应的字符<br>而这个二维表，是不依赖于任何编程语言，独立存在的映射关系。<br>字符集在计算机早期用的是<code>ASCII</code>编码，范围是0-127。例如编号97，对应的字符是’a’，操作系统在显示字符时，通过字符编号97，到字符集里找到字符’a’，然后把它显示出来。<br>至于为何会显示’a’这个字符这样的形状，那属于操作系统在处理字符的问题，安装完操作系统，就能够显示这样形状。</p>
+<p>　　<code>ASCII</code>字符集的范围只有0-127，就算扩展的<code>ASCII</code>也只有0-255个字符，显然只够用来显示英文字母。<br>为了能够显示全世界各个国家的语言文字，Unicode就产生了。<br>　　在String中，每一个char,都是根据它char类型的编码(char可以看做是一个双字节的整型)，找对对应的字符，连在一起就形成字符串。</p>
+<p>一个String字符串的长度，取决于字符个数，也就是char[] 数组的长度，例如”zhang”，这个字符串有5个字符，所以长度是5。每个char占用2个字节空间，所以整体占用10个字节。</p>
+<h2 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h2><p>　　有了字符集的概念，要怎么在计算机表示，就需要指定对应的编码。<br>说到这肯定有想到，既然字符集里，每一个字符都对应一个编号，那直接在计算机里用这个编号表示这个字符，不就可以了？<br>没错下面要说得ASCII编码就是这样表示。</p>
+<ul>
+<li><p><strong>ASCII</strong><br>ASCII字符集，只需一个字节就能够编码。所以ASCII字符集和字符编码是完全一致的，编码规则完全按照字符所在的编号。比如字符’a’在ASCII字符集里是97，所以编码后，它在计算的表示就是97。</p>
+</li>
+<li><p><strong>ISO-8859-1</strong><br>　　128个字符显然是不够用，于是ISO组织在ASCII码基础上有指定了一系列标准来扩展ASCII涵盖了大多数西欧语言字符，ISO-8859-1仍然是但字节编码，总共256个字符。</p>
+</li>
+<li><p><strong>Unicode</strong><br>Unicode是字符集，最新版的<code>Unicode</code>10.0，已经收录了136,755个字符，超过2个字节。</p>
+</li>
+<li><p><strong>UTF-8</strong><br>UTF-16采用两个字节表示一个字符，虽然在表示上非常简单方便，但是也有其缺点，有很很大一部分字符用一个字节就可以表示的现在要用两个字节表示，存储空间上翻倍增长，这样会增加网络传输的流量。而UTF-8采用了一种变长技术，每个编码区域有不同的字码长度。不同类型的字符可以有1~6个字节组成。</p>
+</li>
+</ul>
+<p>　　UTF-8有以下编码规则：</p>
+<ol>
+<li>如果一个字节，最高位（第8位）为0，表示这是一个ASCII字符，所以UTF-8可以兼容ASCII。</li>
+<li>如果一个字节，以11开头，连续的1的个数暗示这个字符的字节数，例如：110xxxxx代表它是双字节UTF-8字符的首字节。</li>
+<li>如果一个字节，以10开始，表示它不是首字节，需要向前查找才能得到当前字符的首字节。</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>《深入分析Java Web技术内幕》</li>
+<li><a href="https://en.wikipedia.org/wiki/Unicode" title="Unicode" target="_blank" rel="external">Wikipedia Unicode</a> </li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/13/buffer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -599,7 +749,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
