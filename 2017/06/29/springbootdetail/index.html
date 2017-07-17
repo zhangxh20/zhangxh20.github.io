@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="张贤河">
 <meta property="og:description" content="注解　　在Spring Boot入口类里,会在类名上加@EnableAutoConfiguration或者@SpringBootApplication注解，这两个有什么差别呢？ @EnableAutoConfiguration@EnableAutoConfiguration注解的源码：123456789101112131415@SuppressWarnings(&quot;deprecation&quot;)@Tar">
 <meta property="og:image" content="http://ot1c4abw2.bkt.clouddn.com/image/png/003.png">
-<meta property="og:updated_time" content="2017-07-13T15:47:53.174Z">
+<meta property="og:updated_time" content="2017-07-17T13:36:11.734Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Boot启动流程源码分析">
 <meta name="twitter:description" content="注解　　在Spring Boot入口类里,会在类名上加@EnableAutoConfiguration或者@SpringBootApplication注解，这两个有什么差别呢？ @EnableAutoConfiguration@EnableAutoConfiguration注解的源码：123456789101112131415@SuppressWarnings(&quot;deprecation&quot;)@Tar">
@@ -108,7 +108,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"remove","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -233,6 +233,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
 
       
     </ul>
@@ -337,7 +347,7 @@
         <h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><p>　　在Spring Boot入口类里,会在类名上加@EnableAutoConfiguration或者@SpringBootApplication注解，这两个有什么差别呢？</p>
 <h2 id="EnableAutoConfiguration"><a href="#EnableAutoConfiguration" class="headerlink" title="@EnableAutoConfiguration"></a>@EnableAutoConfiguration</h2><p>@EnableAutoConfiguration注解的源码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"deprecation"</span>)</div><div class="line"><span class="meta">@Target</span>(ElementType.TYPE)</div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Inherited</span></div><div class="line"><span class="meta">@AutoConfigurationPackage</span></div><div class="line"><span class="meta">@Import</span>(EnableAutoConfigurationImportSelector.class)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</div><div class="line"></div><div class="line">	String ENABLED_OVERRIDE_PROPERTY = <span class="string">"spring.boot.enableautoconfiguration"</span>;</div><div class="line"></div><div class="line">	Class&lt;?&gt;[] exclude() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">	String[] excludeName() <span class="keyword">default</span> &#123;&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h2 id="SpringBootApplication"><a href="#SpringBootApplication" class="headerlink" title="@SpringBootApplication"></a>@SpringBootApplication</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Target</span>(ElementType.TYPE)</div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Inherited</span></div><div class="line"><span class="meta">@SpringBootConfiguration</span></div><div class="line"><span class="meta">@EnableAutoConfiguration</span></div><div class="line"><span class="meta">@ComponentScan</span>(excludeFilters = &#123;</div><div class="line">		<span class="meta">@Filter</span>(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),</div><div class="line">		<span class="meta">@Filter</span>(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) &#125;)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</div><div class="line"></div><div class="line">	<span class="meta">@AliasFor</span>(annotation = EnableAutoConfiguration.class, attribute = <span class="string">"exclude"</span>)</div><div class="line">	Class&lt;?&gt;[] exclude() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">	<span class="meta">@AliasFor</span>(annotation = EnableAutoConfiguration.class, attribute = <span class="string">"excludeName"</span>)</div><div class="line">	String[] excludeName() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">	<span class="meta">@AliasFor</span>(annotation = ComponentScan.class, attribute = <span class="string">"basePackages"</span>)</div><div class="line">	String[] scanBasePackages() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">	<span class="meta">@AliasFor</span>(annotation = ComponentScan.class, attribute = <span class="string">"basePackageClasses"</span>)</div><div class="line">	Class&lt;?&gt;[] scanBasePackageClasses() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>　　可以看出<code>@SpringBootApplication</code>相当于是<code>@Configuration</code>,<code>@EnableAutoConfiguration</code>,<code>@ComponentScan</code>这三者的结合。<code>@SpringBootApplication</code>也提供了后面两个注解配置的别名(alias)。<br>例如<code>exclude</code>排除的类，<code>scanBasePackages</code>扫描的包名等，这些都可以直接该注解上进行配置。</p>
+<p>　　可以看出<code>@SpringBootApplication</code>相当于是<code>@Configuration</code>,<code>@EnableAutoConfiguration</code>,<code>@ComponentScan</code>这三者的结合。<code>@SpringBootApplication</code>也提供了后面两个注解配置的别名(alias)。<br>例如<code>exclude</code>排除的类，<code>scanBasePackages</code>扫描的包名等，这些都可以直接该注解上进行配置。<br><a id="more"></a></p>
 <h1 id="程序入口类SpringApplication"><a href="#程序入口类SpringApplication" class="headerlink" title="程序入口类SpringApplication"></a>程序入口类SpringApplication</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ConfigurableApplicationContext <span class="title">run</span><span class="params">(Object[] sources, String[] args)</span> </span>&#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">new</span> SpringApplication(sources).run(args);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">SpringApplication</span><span class="params">(Object... sources)</span> </span>&#123;</div><div class="line">	initialize(sources);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>　　Spring Boot入口程序很简单，直接通过静态的SpringApplication.run就运行了，返回ConfigurableApplicationContext对象。<br>　　进入run方法里，可以很直观看到，启动程序主要做两部分，一个是initialize()初始化所有配置参数，另外一个是run()方法。</p>
 <h2 id="initialize"><a href="#initialize" class="headerlink" title="initialize()"></a>initialize()</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(Object[] sources)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span> (sources != <span class="keyword">null</span> &amp;&amp; sources.length &gt; <span class="number">0</span>) &#123;</div><div class="line">		<span class="keyword">this</span>.sources.addAll(Arrays.asList(sources));</div><div class="line">	&#125;</div><div class="line">	<span class="comment">// 判断是否有Web环境</span></div><div class="line">	<span class="keyword">this</span>.webEnvironment = deduceWebEnvironment();</div><div class="line">	<span class="comment">// 获取所有ApplicationContextInitializer型的类</span></div><div class="line">	setInitializers((Collection) getSpringFactoriesInstances(</div><div class="line">			ApplicationContextInitializer.class));</div><div class="line">	<span class="comment">// 获取所有ApplicationListener型的类</span></div><div class="line">	setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));</div><div class="line">	<span class="keyword">this</span>.mainApplicationClass = deduceMainApplicationClass();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -459,110 +469,6 @@
 
 
         </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="zhangxianhe" />
-          <p class="site-author-name" itemprop="name">zhangxianhe</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">8</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">标签</span>
-              
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注解"><span class="nav-number">1.</span> <span class="nav-text">注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EnableAutoConfiguration"><span class="nav-number">1.1.</span> <span class="nav-text">@EnableAutoConfiguration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBootApplication"><span class="nav-number">1.2.</span> <span class="nav-text">@SpringBootApplication</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序入口类SpringApplication"><span class="nav-number">2.</span> <span class="nav-text">程序入口类SpringApplication</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#initialize"><span class="nav-number">2.1.</span> <span class="nav-text">initialize()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getSpringFactoriesInstances"><span class="nav-number">2.2.</span> <span class="nav-text">getSpringFactoriesInstances()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loadFactoryNames"><span class="nav-number">2.3.</span> <span class="nav-text">loadFactoryNames()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#run"><span class="nav-number">2.4.</span> <span class="nav-text">run()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#printBanner"><span class="nav-number">2.5.</span> <span class="nav-text">printBanner()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prepareContext"><span class="nav-number">2.6.</span> <span class="nav-text">prepareContext()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#refresh"><span class="nav-number">2.7.</span> <span class="nav-text">refresh()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
         
       </div>
     </main>

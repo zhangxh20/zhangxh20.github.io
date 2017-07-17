@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="JDK7为间接调用方法引入新的API,在java.lang.invoke包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重 主要的类MethodHandle方法句柄、对可直接执行的方法的类型化引用，能够安全调用方法的对象。MethodHandle 是抽象类，无法直接实例化，需通过MethodHandles.Lookup的工厂方法来创建 MethodType每个方法句柄都有一个Met">
+<meta name="description" content="JDK7为间接调用方法引入新的API,在java.lang.invoke包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MethodHandle">
 <meta property="og:url" content="http://zhangxh20.github.io/2017/06/09/methodhandle/index.html">
 <meta property="og:site_name" content="张贤河">
-<meta property="og:description" content="JDK7为间接调用方法引入新的API,在java.lang.invoke包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重 主要的类MethodHandle方法句柄、对可直接执行的方法的类型化引用，能够安全调用方法的对象。MethodHandle 是抽象类，无法直接实例化，需通过MethodHandles.Lookup的工厂方法来创建 MethodType每个方法句柄都有一个Met">
-<meta property="og:updated_time" content="2017-06-14T14:55:13.548Z">
+<meta property="og:description" content="JDK7为间接调用方法引入新的API,在java.lang.invoke包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重">
+<meta property="og:updated_time" content="2017-07-17T13:36:24.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MethodHandle">
-<meta name="twitter:description" content="JDK7为间接调用方法引入新的API,在java.lang.invoke包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重 主要的类MethodHandle方法句柄、对可直接执行的方法的类型化引用，能够安全调用方法的对象。MethodHandle 是抽象类，无法直接实例化，需通过MethodHandles.Lookup的工厂方法来创建 MethodType每个方法句柄都有一个Met">
+<meta name="twitter:description" content="JDK7为间接调用方法引入新的API,在java.lang.invoke包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重">
 
 
 
@@ -106,7 +106,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"remove","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -231,6 +231,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
 
       
     </ul>
@@ -332,7 +342,7 @@
       
 
       
-        <p>JDK7为间接调用方法引入新的API,在<code>java.lang.invoke</code>包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重</p>
+        <p>JDK7为间接调用方法引入新的API,在<code>java.lang.invoke</code>包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重<br><a id="more"></a></p>
 <h2 id="主要的类"><a href="#主要的类" class="headerlink" title="主要的类"></a>主要的类</h2><h3 id="MethodHandle"><a href="#MethodHandle" class="headerlink" title="MethodHandle"></a>MethodHandle</h3><p>方法句柄、对可直接执行的方法的类型化引用，能够安全调用方法的对象。<br><code>MethodHandle</code> 是抽象类，无法直接实例化，需通过<code>MethodHandles.Lookup</code>的工厂方法来创建</p>
 <h3 id="MethodType"><a href="#MethodType" class="headerlink" title="MethodType"></a>MethodType</h3><p>每个方法句柄都有一个<code>MethodType</code>实例，用来指明方法的返回类型和参数类型。</p>
 <ul>
@@ -438,110 +448,6 @@
 
 
         </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="zhangxianhe" />
-          <p class="site-author-name" itemprop="name">zhangxianhe</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">8</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">标签</span>
-              
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要的类"><span class="nav-number">1.</span> <span class="nav-text">主要的类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MethodHandle"><span class="nav-number">1.1.</span> <span class="nav-text">MethodHandle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MethodType"><span class="nav-number">1.2.</span> <span class="nav-text">MethodType</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MethodHandles"><span class="nav-number">1.3.</span> <span class="nav-text">MethodHandles</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MethodHandles-Lookup"><span class="nav-number">1.4.</span> <span class="nav-text">MethodHandles.Lookup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用示例"><span class="nav-number">2.</span> <span class="nav-text">使用示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
         
       </div>
     </main>

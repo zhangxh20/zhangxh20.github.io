@@ -94,7 +94,7 @@
 <meta property="og:url" content="http://zhangxh20.github.io/2017/07/09/websocket/index.html">
 <meta property="og:site_name" content="张贤河">
 <meta property="og:description" content="Websocket介绍　　在一个 WebSocket应用中, 服务器发布一个 WebSocket端点, 客户端使用这个端点的URI来连接服务器。建立连接之后,websocket协议是对称的;客户端和服务器可以在连接打开的任何时间相互发送消息,而且它们可以在任何时间关闭连接。客户端总是只连接到一 个服务器，而服务器可以接受多个客户端的连接。　　WebSocket协议有两部分: 握手和数据传输。 客户">
-<meta property="og:updated_time" content="2017-07-11T15:03:03.459Z">
+<meta property="og:updated_time" content="2017-07-17T13:35:56.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java实现Websocket">
 <meta name="twitter:description" content="Websocket介绍　　在一个 WebSocket应用中, 服务器发布一个 WebSocket端点, 客户端使用这个端点的URI来连接服务器。建立连接之后,websocket协议是对称的;客户端和服务器可以在连接打开的任何时间相互发送消息,而且它们可以在任何时间关闭连接。客户端总是只连接到一 个服务器，而服务器可以接受多个客户端的连接。　　WebSocket协议有两部分: 握手和数据传输。 客户">
@@ -106,7 +106,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"remove","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -231,6 +231,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
 
       
     </ul>
@@ -335,9 +345,9 @@
         <h1 id="Websocket介绍"><a href="#Websocket介绍" class="headerlink" title="Websocket介绍"></a>Websocket介绍</h1><p>　　在一个 WebSocket应用中, 服务器发布一个 WebSocket端点, 客户端使用这个端点的URI来连接服务器。建立连接之后,websocket协议是对称的;客户端和服务器可以在连接打开的任何时间相互发送消息,而且它们可以在任何时间关闭连接。客户端总是只连接到一 个服务器，而服务器可以接受多个客户端的连接。<br>　　WebSocket协议有两部分: 握手和数据传输。 客户端使用一个 WebSocket端点的 URI向它发送一个请求,发起握手过程。这个握手过程与现有基于 HTTP的基石出设施是兼容的:web服务器把它解释为一个 HTTP连接升级请求。<br>WebSocket支持文本消息(编码为 UTF-8 )和二进制消息。 WebSocket中的控制帧是close、 ping和pong(对ping帧的响应)。 ping和 pong帧可能还包含应用数据。websocket端点由采用以下形式的 URI表示:</p>
 <ul>
 <li>ws://host:port/path?query</li>
-<li>wss://host:port/path?query</li>
+<li>wss://host:port/path?query<a id="more"></a>
+　　ws模式表示一个未加密的 WebSocket连接, wss模式表示一个加密的连接。 port是可选的;对于未加密的连接,默认的端口号是80,对于加密连接。默认的端口号是443。 path部分指示服务器中一个端点的位置。 query部分是可选的。现代 web浏览器实理了 WebSocket协议, 并提供一个 Javascript API来连接端点，发送消息，以及为WebSocket事件指定回调方法（如打开连接、接收消息、关闭连接）。</li>
 </ul>
-<p>　　ws模式表示一个未加密的 WebSocket连接, wss模式表示一个加密的连接。 port是可选的;对于未加密的连接,默认的端口号是80,对于加密连接。默认的端口号是443。 path部分指示服务器中一个端点的位置。 query部分是可选的。现代 web浏览器实理了 WebSocket协议, 并提供一个 Javascript API来连接端点，发送消息，以及为WebSocket事件指定回调方法（如打开连接、接收消息、关闭连接）。</p>
 <h1 id="在Java-中创建WebSocket应用"><a href="#在Java-中创建WebSocket应用" class="headerlink" title="在Java 中创建WebSocket应用"></a>在Java 中创建WebSocket应用</h1><p>　　WebSocket Java API包括以下包：</p>
 <ul>
 <li>javax.websocket.server 包含创建和配置服务端点的注解、类和接口。</li>
@@ -455,110 +465,6 @@
 
 
         </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="zhangxianhe" />
-          <p class="site-author-name" itemprop="name">zhangxianhe</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">8</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">标签</span>
-              
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Websocket介绍"><span class="nav-number">1.</span> <span class="nav-text">Websocket介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在Java-中创建WebSocket应用"><span class="nav-number">2.</span> <span class="nav-text">在Java 中创建WebSocket应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可编程端点"><span class="nav-number">2.1.</span> <span class="nav-text">可编程端点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注解端点"><span class="nav-number">2.2.</span> <span class="nav-text">注解端点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#收发二进制消息"><span class="nav-number">2.3.</span> <span class="nav-text">收发二进制消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#维持客户端状态"><span class="nav-number">2.4.</span> <span class="nav-text">维持客户端状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用编码器和解码器"><span class="nav-number">2.5.</span> <span class="nav-text">使用编码器和解码器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编码器"><span class="nav-number">2.5.1.</span> <span class="nav-text">编码器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解码器"><span class="nav-number">2.5.2.</span> <span class="nav-text">解码器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WebSocket-JavaScript编程方式"><span class="nav-number">3.</span> <span class="nav-text">WebSocket JavaScript编程方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
         
       </div>
     </main>

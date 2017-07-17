@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="Java Servlet的注解方式创建　　Java Servlet在3.0开始支持注解配置，以前在web.xml配置的信息，可以用注解的方式。 注册监听器  123456import java.servlet.annotation.WebListener;import java.servlet.ServletContextListener;@WebListenerpublic class Simp">
+<meta name="description" content="Java Servlet异步处理和非阻塞I/O">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java Servlet异步处理和非阻塞I&#x2F;O">
 <meta property="og:url" content="http://zhangxh20.github.io/2017/07/03/asyncservlet/index.html">
 <meta property="og:site_name" content="张贤河">
-<meta property="og:description" content="Java Servlet的注解方式创建　　Java Servlet在3.0开始支持注解配置，以前在web.xml配置的信息，可以用注解的方式。 注册监听器  123456import java.servlet.annotation.WebListener;import java.servlet.ServletContextListener;@WebListenerpublic class Simp">
-<meta property="og:updated_time" content="2017-07-05T15:03:52.382Z">
+<meta property="og:description" content="Java Servlet异步处理和非阻塞I/O">
+<meta property="og:updated_time" content="2017-07-17T13:38:00.763Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Servlet异步处理和非阻塞I&#x2F;O">
-<meta name="twitter:description" content="Java Servlet的注解方式创建　　Java Servlet在3.0开始支持注解配置，以前在web.xml配置的信息，可以用注解的方式。 注册监听器  123456import java.servlet.annotation.WebListener;import java.servlet.ServletContextListener;@WebListenerpublic class Simp">
+<meta name="twitter:description" content="Java Servlet异步处理和非阻塞I/O">
 
 
 
@@ -106,7 +106,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"remove","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -231,6 +231,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
 
       
     </ul>
@@ -332,7 +342,8 @@
       
 
       
-        <h1 id="Java-Servlet的注解方式创建"><a href="#Java-Servlet的注解方式创建" class="headerlink" title="Java Servlet的注解方式创建"></a>Java Servlet的注解方式创建</h1><p>　　Java Servlet在3.0开始支持注解配置，以前在web.xml配置的信息，可以用注解的方式。</p>
+        <p>Java Servlet异步处理和非阻塞I/O<br><a id="more"></a></p>
+<h1 id="Java-Servlet的注解方式创建"><a href="#Java-Servlet的注解方式创建" class="headerlink" title="Java Servlet的注解方式创建"></a>Java Servlet的注解方式创建</h1><p>　　Java Servlet在3.0开始支持注解配置，以前在web.xml配置的信息，可以用注解的方式。</p>
 <p><strong>注册监听器</strong> </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.servlet.annotation.WebListener;</div><div class="line"><span class="keyword">import</span> java.servlet.ServletContextListener;</div><div class="line"></div><div class="line"><span class="meta">@WebListener</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleServletListener</span> <span class="keyword">implements</span> <span class="title">ServletContextListener</span> </span>&#123;</div><div class="line">...</div></pre></td></tr></table></figure>
 <p><strong>配置过滤器</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> javax.servlet.Filter;</div><div class="line"><span class="keyword">import</span> javax.servlet.annotation.Webfilter;</div><div class="line"><span class="keyword">import</span> javax.servlet.annotation.WebInitParam;</div><div class="line"></div><div class="line"><span class="meta">@WebFilter</span>(filterName=<span class="string">"time"</span>,</div><div class="line">urlPatterns=&#123;<span class="string">"*/*"</span>&#125;,</div><div class="line">initParams= &#123;<span class="meta">@WebInitParam</span>(name = <span class="string">"mood"</span>,value = <span class="string">"awake"</span>)&#125;)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimeOfDayFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</div><div class="line">...</div></pre></td></tr></table></figure></p>
@@ -445,110 +456,6 @@
 
 
         </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="zhangxianhe" />
-          <p class="site-author-name" itemprop="name">zhangxianhe</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">8</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">标签</span>
-              
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-Servlet的注解方式创建"><span class="nav-number">1.</span> <span class="nav-text">Java Servlet的注解方式创建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异步处理"><span class="nav-number">2.</span> <span class="nav-text">异步处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#servlet中的异步处理"><span class="nav-number">2.1.</span> <span class="nav-text">servlet中的异步处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非阻塞I-O"><span class="nav-number">3.</span> <span class="nav-text">非阻塞I/O</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
         
       </div>
     </main>

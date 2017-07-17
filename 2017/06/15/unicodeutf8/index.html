@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。 String类　　首先从String对象说起，String对象的组成元素是一个char组">
+<meta name="description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="字符集和字符编码Unicode和UTF-8的关系">
 <meta property="og:url" content="http://zhangxh20.github.io/2017/06/15/unicodeutf8/index.html">
 <meta property="og:site_name" content="张贤河">
-<meta property="og:description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。 String类　　首先从String对象说起，String对象的组成元素是一个char组">
-<meta property="og:updated_time" content="2017-07-12T14:53:00.377Z">
+<meta property="og:description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。">
+<meta property="og:updated_time" content="2017-07-17T13:36:01.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字符集和字符编码Unicode和UTF-8的关系">
-<meta name="twitter:description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。 String类　　首先从String对象说起，String对象的组成元素是一个char组">
+<meta name="twitter:description" content="字符集和字符编码的关系　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。">
 
 
 
@@ -106,7 +106,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"remove","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -231,6 +231,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
 
       
     </ul>
@@ -332,7 +342,7 @@
       
 
       
-        <h2 id="字符集和字符编码的关系"><a href="#字符集和字符编码的关系" class="headerlink" title="字符集和字符编码的关系"></a>字符集和字符编码的关系</h2><p>　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。<br>其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。</p>
+        <h2 id="字符集和字符编码的关系"><a href="#字符集和字符编码的关系" class="headerlink" title="字符集和字符编码的关系"></a>字符集和字符编码的关系</h2><p>　　字符集和字符编码这两个概念容易混淆，很多人可能会认为字符集和字符编码是同一个概念。<br>其实可以这么理解，字符集就是一部字典，里面的每个字对应的编号，都已经固定了，而字符编码就是要怎么把这些字符在计算机里表示。对于字符编码，存在着同样一个字符，因为采用的编码方式不同，在计算机表示的也不同。<br><a id="more"></a></p>
 <h2 id="String类"><a href="#String类" class="headerlink" title="String类"></a>String类</h2><p>　　首先从String对象说起，String对象的组成元素是一个char组数<br>char 在Java是占用两个字节，采用Unicode字符集<br>　　看看String的两个方法：</p>
 <ul>
 <li><code>char [] toCharArray()</code> 获取字符数组，返回的是char数字。</li>
@@ -446,110 +456,6 @@
 
 
         </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="zhangxianhe" />
-          <p class="site-author-name" itemprop="name">zhangxianhe</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">8</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">标签</span>
-              
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符集和字符编码的关系"><span class="nav-number">1.</span> <span class="nav-text">字符集和字符编码的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String类"><span class="nav-number">2.</span> <span class="nav-text">String类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符集"><span class="nav-number">3.</span> <span class="nav-text">字符集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符编码"><span class="nav-number">4.</span> <span class="nav-text">字符编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
         
       </div>
     </main>
