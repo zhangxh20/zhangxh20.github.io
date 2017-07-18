@@ -87,19 +87,19 @@
 
 
 
-<meta name="description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种,我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除">
+<meta name="description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除操作。 　　Buffer可以理解成是一个容器，可以往容器里写入数据，也可以从容器中读取数据，可以一个字节一个字节的读写，也可">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java NIO中的Buffer">
 <meta property="og:url" content="http://zhangxh20.github.io/2017/06/13/buffer/index.html">
 <meta property="og:site_name" content="张贤河">
-<meta property="og:description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种,我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除">
+<meta property="og:description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除操作。 　　Buffer可以理解成是一个容器，可以往容器里写入数据，也可以从容器中读取数据，可以一个字节一个字节的读写，也可">
 <meta property="og:image" content="http://ot1c4abw2.bkt.clouddn.com/image/png/002.png">
 <meta property="og:image" content="http://ot1c4abw2.bkt.clouddn.com/image/png/001.png">
-<meta property="og:updated_time" content="2017-07-17T13:36:36.418Z">
+<meta property="og:updated_time" content="2017-07-18T12:18:39.623Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java NIO中的Buffer">
-<meta name="twitter:description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种,我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除">
+<meta name="twitter:description" content="简介　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如ByteBuffer是byte数组，IntBuffer是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除操作。 　　Buffer可以理解成是一个容器，可以往容器里写入数据，也可以从容器中读取数据，可以一个字节一个字节的读写，也可">
 <meta name="twitter:image" content="http://ot1c4abw2.bkt.clouddn.com/image/png/002.png">
 
 
@@ -345,7 +345,7 @@
       
 
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种,我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如<code>ByteBuffer</code>是byte数组，<code>IntBuffer</code>是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除操作。</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如<code>ByteBuffer</code>是byte数组，<code>IntBuffer</code>是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除操作。</p>
 <p>　　Buffer可以理解成是一个容器，可以往容器里写入数据，也可以从容器中读取数据，可以一个字节一个字节的读写，也可以多个字节读写，可以在写的途中切换为读，读到一半又切换到写，等等。。。<br><a id="more"></a><br>　　Buffer有以下几个属性:</p>
 <ul>
 <li><code>int mark</code> 标记</li>

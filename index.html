@@ -549,7 +549,7 @@
               
                 
                 <a class="post-title-link" href="/2017/07/03/asyncservlet/" itemprop="url">
-                  Java Servlet异步处理和非阻塞I/O
+                  Java Servlet异步处理、非阻塞I/O和文件上传
                 </a>
               
             
@@ -602,7 +602,12 @@
 
       
         
-          <p>Java Servlet异步处理和非阻塞I/O<br>
+          <h1 id="异步处理"><a href="#异步处理" class="headerlink" title="异步处理"></a>异步处理</h1><p>　　应用服务器中的 web容器通常对各个客户端情求分别使用一个服务器线程。在工作负载很繁重的情况下,容器常要大量线程来为所有客户端请求服务。可扩展性限制包括内存用尽,或容器线程池耗尽。为了创建可扩展的 web应用,必须确保与请求关联的线程不会空闲, 使容器可以用它们处理新的请求。有时与请求关联的线程可能会空闲, 这有两种常见的情况:</p>
+<ul>
+<li>线程需要等待一个资源可用,或者在建立响应之前处理数据。例如,应用在生成响应之前可能需要査询一个数据库, 或者要从一个远程 web服务访问数据。</li>
+<li>线程生成响应之前需要等待一个事件。例如, 一个应用在生成响应之前可能必须等待一个 JMS消息、 来自另一个客户端的新信息, 或者队列中可用的一个新数据。</li>
+</ul>
+<p>　　这些情況表示了限制 web应用可扩展性的一些阻塞操作。异步处理是指把这些阻塞操作分配给一个新线程, 而与请求美联的线程立即返回给容器 。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/07/03/asyncservlet/#more" rel="contents">
@@ -1105,7 +1110,7 @@
 
       
         
-          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。它其实是缓存的一种,我们常说的缓存，包括保存在硬盘上的浏览器缓存，保存在内存中的缓存（比如Redis、memcached）。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如<code>ByteBuffer</code>是byte数组，<code>IntBuffer</code>是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除操作。</p>
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如<code>ByteBuffer</code>是byte数组，<code>IntBuffer</code>是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除操作。</p>
 <p>　　Buffer可以理解成是一个容器，可以往容器里写入数据，也可以从容器中读取数据，可以一个字节一个字节的读写，也可以多个字节读写，可以在写的途中切换为读，读到一半又切换到写，等等。。。<br>
           <!--noindex-->
           <div class="post-button text-center">
