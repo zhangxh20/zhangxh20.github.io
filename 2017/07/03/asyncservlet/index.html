@@ -94,7 +94,7 @@
 <meta property="og:url" content="http://zhangxh20.github.io/2017/07/03/asyncservlet/index.html">
 <meta property="og:site_name" content="张贤河">
 <meta property="og:description" content="异步处理　　应用服务器中的 web容器通常对各个客户端情求分别使用一个服务器线程。在工作负载很繁重的情况下,容器常要大量线程来为所有客户端请求服务。可扩展性限制包括内存用尽,或容器线程池耗尽。为了创建可扩展的 web应用,必须确保与请求关联的线程不会空闲, 使容器可以用它们处理新的请求。有时与请求关联的线程可能会空闲, 这有两种常见的情况:  线程需要等待一个资源可用,或者在建立响应之前处理数据。">
-<meta property="og:updated_time" content="2017-07-18T12:41:44.747Z">
+<meta property="og:updated_time" content="2017-07-18T13:17:30.011Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Servlet异步处理、非阻塞I&#x2F;O和文件上传">
 <meta name="twitter:description" content="异步处理　　应用服务器中的 web容器通常对各个客户端情求分别使用一个服务器线程。在工作负载很繁重的情况下,容器常要大量线程来为所有客户端请求服务。可扩展性限制包括内存用尽,或容器线程池耗尽。为了创建可扩展的 web应用,必须确保与请求关联的线程不会空闲, 使容器可以用它们处理新的请求。有时与请求关联的线程可能会空闲, 这有两种常见的情况:  线程需要等待一个资源可用,或者在建立响应之前处理数据。">
@@ -366,19 +366,19 @@
 <h1 id="Servlet文件上传"><a href="#Servlet文件上传" class="headerlink" title="Servlet文件上传"></a>Servlet文件上传</h1><p>　　对于很多 web应用来说. 支持文件上传是一个很基本也很常见的需求。 在Servlet规范中,实现文件上传需要使用外部库或者复杂的输入处理。现在 Java Servlet规范可以采用一种通用而且可移植的方式为这个问题提供一个可靠的解决方案。如今 Java Servlet技术可以直接支持文件上传, 实现 Java Servlet规范的所有 web容器都可以解析多部分请求,通过过HttpServletRequest对象提供 MIME附件。<br>　　另外有一个新注解 javax.servlet.annotation.Multipartconfig,用来指示声明该注解的servlet希望使用multipart/form-data MIME类型建立清求。有 @Multipartconfig 注解的servlet可以调用 request.getPart(String name)或 request.getParts()方法获取一个给定 multipart/form-data请求的 Part组件。</p>
 <h2 id="Multipartconfig注解"><a href="#Multipartconfig注解" class="headerlink" title="@Multipartconfig注解"></a>@Multipartconfig注解</h2><p>　　@Multipartconfig注解支持以下可选的属性：</p>
 <ul>
-<li><strong>1ocation</strong>:这是一个绝对路径,指示文件系统上的一个目录。1ocation属性不支持相对于应用上下文的路径。处理多部分成文件大小超出指定 filesizeThreshold设置时,会用这个位置临时地存储文件。默认位置为””</li>
+<li><strong>location</strong>:这是一个绝对路径,指示文件系统上的一个目录。location属性不支持相对于应用上下文的路径。处理多部分成文件大小超出指定 filesizeThreshold设置时,会用这个位置临时地存储文件。默认位置为””</li>
 <li><strong>filesizeThreshold</strong>:超过这个文件大小(字节数)的其余部分将临时存储在磁盘上。默认大小为 0字节。</li>
 <li><strong>MaxFilesize</strong>:上传文件允许的最大大小(字节数)。如果任何一个上传文件的大小超过了这个大小, Web容器就会批出一个异常(IllegalstateException)。默认大小为无限制 。</li>
 <li><strong>maxRequestSize</strong>:対于一个multipart/form-clata请求,所允许的最大大小(字节数)。如果所有上传文件的总大小超过这个固值, Web容器会抛出一个异常。默认大小为无限制 。</li>
 </ul>
 <h2 id="getParts和-getPart-方法"><a href="#getParts和-getPart-方法" class="headerlink" title="getParts和 getPart 方法"></a>getParts和 getPart 方法</h2><p>Servlet规范还支持另外两个 HttpservletRequest方法:</p>
 <ul>
-<li>Co11ection<part> getParts()</part></li>
-<li>Part getPart(String namee)<br>　　request.getParts()方法返回所有 Part对象的集合。如果有多个输入文件类型,就会返回多个 Part对象,由于 Part对象是命名对象,可以用 getPart(string name)方法访问一个特定的 Part,或者.可以用返回1terable<part>的 getparts()方法得<br>到所有 Part对象上的一个Iterator。<br>　　javax.servlet.http.Part接口是一个简单的接口, 提供了一些允许各个 part自省的方法, 这些方法完成以下工作:</part></li>
+<li>Collection<part> getParts()</part></li>
+<li>Part getPart(String namee)<br>　　request.getParts()方法返回所有 Part对象的集合。如果有多个输入文件类型,就会返回多个 Part对象,由于 Part对象是命名对象,可以用 getPart(string name)方法访问一个特定的 Part,或者.可以用返回Iterable<part>的 getparts()方法得<br>到所有 Part对象上的一个Iterator。<br>　　javax.servlet.http.Part接口是一个简单的接口, 提供了一些允许各个 part自省的方法, 这些方法完成以下工作:</part></li>
 <li>获取Part的名字、大小和内容类型,,</li>
-<li>查询带 part提交的l11部,,</li>
-<li>删除一个Part,,</li>
-<li>将一个 part写到磁盘上<br>　　例如, Part接口提供了write(string fi’ename)方法来写指定名的文件,这个文件保存在@MultipartConfig注解location属性指定的目录中，或者对于fileupload示例，它保存在表单Destination域指定的位置上。</li>
+<li>查询带 part提交的头部。</li>
+<li>删除一个Part。</li>
+<li>将一个 part写到磁盘上。<br>　　例如, Part接口提供了write(string filename)方法来写指定名的文件,这个文件保存在@MultipartConfig注解location属性指定的目录中，或者对于fileupload示例，它保存在表单Destination域指定的位置上。</li>
 </ul>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
 <li>《Java EE 7权威指南》</li>
