@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="Stream的使用一般包括三件事：  一个数据源（如集合）来执行一个查询； 一个中间操作链，形成一条流的流水线； 一个终端操作，执行流水线，并能生成结果  　　流的流水线背后的理念类似于构建器模式。 ①在构建器模式中有一个调用链用来设置一套配置（对流来说这就是一个中间操作链），接着是调用built方法（对流来说就是终端操作）">
+<meta name="description" content="Stream的使用一般包括三件事：  一个数据源（如集合）来执行一个查询； 一个中间操作链，形成一条流的流水线； 一个终端操作，执行流水线，并能生成结果  　　流的流水线背后的理念类似于构建器模式。 在构建器模式中有一个调用链用来设置一套配置（对流来说这就是一个中间操作链），接着是调用built方法（对流来说就是终端操作）">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java 8 Stream 使用">
 <meta property="og:url" content="http://zhangxh20.github.io/2017/07/25/streamuse/index.html">
 <meta property="og:site_name" content="张贤河">
-<meta property="og:description" content="Stream的使用一般包括三件事：  一个数据源（如集合）来执行一个查询； 一个中间操作链，形成一条流的流水线； 一个终端操作，执行流水线，并能生成结果  　　流的流水线背后的理念类似于构建器模式。 ①在构建器模式中有一个调用链用来设置一套配置（对流来说这就是一个中间操作链），接着是调用built方法（对流来说就是终端操作）">
-<meta property="og:updated_time" content="2017-07-25T15:35:55.252Z">
+<meta property="og:description" content="Stream的使用一般包括三件事：  一个数据源（如集合）来执行一个查询； 一个中间操作链，形成一条流的流水线； 一个终端操作，执行流水线，并能生成结果  　　流的流水线背后的理念类似于构建器模式。 在构建器模式中有一个调用链用来设置一套配置（对流来说这就是一个中间操作链），接着是调用built方法（对流来说就是终端操作）">
+<meta property="og:updated_time" content="2017-07-25T15:53:04.241Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 8 Stream 使用">
-<meta name="twitter:description" content="Stream的使用一般包括三件事：  一个数据源（如集合）来执行一个查询； 一个中间操作链，形成一条流的流水线； 一个终端操作，执行流水线，并能生成结果  　　流的流水线背后的理念类似于构建器模式。 ①在构建器模式中有一个调用链用来设置一套配置（对流来说这就是一个中间操作链），接着是调用built方法（对流来说就是终端操作）">
+<meta name="twitter:description" content="Stream的使用一般包括三件事：  一个数据源（如集合）来执行一个查询； 一个中间操作链，形成一条流的流水线； 一个终端操作，执行流水线，并能生成结果  　　流的流水线背后的理念类似于构建器模式。 在构建器模式中有一个调用链用来设置一套配置（对流来说这就是一个中间操作链），接着是调用built方法（对流来说就是终端操作）">
 
 
 
@@ -380,7 +380,7 @@
 <li>一个中间操作链，形成一条流的流水线；</li>
 <li>一个终端操作，执行流水线，并能生成结果</li>
 </ul>
-<p>　　流的流水线背后的理念类似于构建器模式。 ①在构建器模式中有一个调用链用来设置一套配置（对流来说这就是一个中间操作链），接着是调用built方法（对流来说就是终端操作）<br><a id="more"></a></p>
+<p>　　流的流水线背后的理念类似于构建器模式。 在构建器模式中有一个调用链用来设置一套配置（对流来说这就是一个中间操作链），接着是调用built方法（对流来说就是终端操作）<br><a id="more"></a></p>
 <h1 id="筛选和切片"><a href="#筛选和切片" class="headerlink" title="筛选和切片"></a>筛选和切片</h1><ul>
 <li><strong>filter</strong>方法，过滤<br>　　该操作会接受一个谓词（一个返回boolean的函数）作为参数，并返回一个包括所有符合谓词的元素的流。例如下来代码所示，筛选出所有素菜，创建一张素食菜单：<br><code>List&lt;Dish&gt; vegetarianMenu = menu.stream().filter(Dish::isVegetarian).collect(toList());</code></li>
 <li><strong>distinct</strong>方法，去重<br>　　<code>distinct</code>就像在SQL里去重复一样，但要判断Java对象是否重复，需要hashCode和equals方法实现。</li>
@@ -393,7 +393,7 @@
 <h1 id="扁平化"><a href="#扁平化" class="headerlink" title="扁平化"></a>扁平化</h1><ul>
 <li><strong>flatMap</strong>方法，扁平化<br>　　对Stream的操作，前面的筛选、切片和映射，都很容易理解，而扁平化则逐个分析。先列个例子：<br>对于一张单词 表 ， 如 何 返 回 一 张 列 表 ， 列 出 里 面 各 不 相 同 的 字 符 呢 ？ 例 如 ， 给 定 单 词 列 表[“Hello”,”World”]，你想要返列表[“H”,”e”,”l”, “o”,”W”,”r”,”d”]。<br>　　你可能会认为这很容易，你可以把每个单词映射成一张字符表，然后调用distinct来过滤重复的字符。第一个版本可能是这样的：<br><code>words.stream().map(word -&gt; word.split(&quot;&quot;)).distinct().collect(toList())</code><br>在<code>word -&gt; word.split(&quot;&quot;)</code>这个函数，它返回的是String []数组，所以最终映射的结果是一个<code>List&lt;String []&gt;</code>的列表，它的每一个元素是String []。</li>
 </ul>
-<p><strong>使用Arrays.stream()</strong><br>　　你需要一个Stream<string>，而不是Stream<string []="">。有一个叫作Arrays.stream()的方法可以接受一个数组并产生一个Stream。<br><code>String[] arrayOfWords = {&quot;Goodbye&quot;, &quot;World&quot;};</code><br><code>Stream&lt;String&gt; streamOfwords = Arrays.stream(arrayOfWords);</code><br>　　把它应用到流水线上：<br><code>words.stream().map(word -&gt; word.split(&quot;&quot;)).map(Arrays::stream).distinct().collect(toList());</code><br>　　在<code>map(word -&gt; word.split(&quot;&quot;))</code>映射成Stream<string []="">，<code>map(Arrays::stream)</code>继续映射成<code>Stream&lt;Stream&lt;String&gt;&gt;</code>与期望的结果相违背。</string></string></string></p>
+<p><strong>使用Arrays.stream()</strong><br>　　你需要一个Stream<string>，而不是Stream<string []="">。有一个叫作Arrays.stream()的方法可以接受一个数组并产生一个Stream。<br><code>String[] arrayOfWords = {&quot;Goodbye&quot;, &quot;World&quot;};</code><br><code>Stream&lt;String&gt; streamOfwords = Arrays.stream(arrayOfWords);</code><br>　　把它应用到流水线上：<br><code>words.stream().map(word -&gt; word.split(&quot;&quot;)).map(Arrays::stream).distinct().collect(toList());</code><br>　　在<code>map(word -&gt; word.split(&quot;&quot;))</code>映射成<code>Stream&lt;String []&gt;</code>，<code>map(Arrays::stream)</code>继续映射成<code>Stream&lt;Stream&lt;String&gt;&gt;</code>与期望的结果相违背。</string></string></p>
 <p><strong>使用flatMap()</strong><br><code>List&lt;String&gt; uniqueCharacters =words.stream().map(w -&gt;</code><br><code>w.split(&quot;&quot;)).flatMap(Arrays::stream).distinct().collect(Collectors.toList());</code><br>　　使用flatMap方法的效果是，各个数组并不是分别映射成一个流，而是映射成流的内容。所有使用map(Arrays::stream)时生成的单个流都被合并起来，即扁平化为一个流。一言以蔽之， flatmap方法让你把一个流中的每个值都换成另一个流，然后把所有的流连接起来成为一个流。</p>
 <h1 id="匹配和查找"><a href="#匹配和查找" class="headerlink" title="匹配和查找"></a>匹配和查找</h1><ul>
 <li><strong>anyMatch</strong>方法，至少匹配一个元素</li>
@@ -479,6 +479,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/26/jvmspace/" rel="prev" title="Java虚拟机运行时内存数据区域">
+                Java虚拟机运行时内存数据区域 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
