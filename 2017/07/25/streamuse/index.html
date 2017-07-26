@@ -94,7 +94,7 @@
 <meta property="og:url" content="http://zhangxh20.github.io/2017/07/25/streamuse/index.html">
 <meta property="og:site_name" content="张贤河">
 <meta property="og:description" content="Stream的使用一般包括三件事：  一个数据源（如集合）来执行一个查询； 一个中间操作链，形成一条流的流水线； 一个终端操作，执行流水线，并能生成结果  　　流的流水线背后的理念类似于构建器模式。 在构建器模式中有一个调用链用来设置一套配置（对流来说这就是一个中间操作链），接着是调用built方法（对流来说就是终端操作）">
-<meta property="og:updated_time" content="2017-07-25T15:53:04.241Z">
+<meta property="og:updated_time" content="2017-07-26T12:23:21.224Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 8 Stream 使用">
 <meta name="twitter:description" content="Stream的使用一般包括三件事：  一个数据源（如集合）来执行一个查询； 一个中间操作链，形成一条流的流水线； 一个终端操作，执行流水线，并能生成结果  　　流的流水线背后的理念类似于构建器模式。 在构建器模式中有一个调用链用来设置一套配置（对流来说这就是一个中间操作链），接着是调用built方法（对流来说就是终端操作）">
@@ -393,12 +393,15 @@
 <h1 id="扁平化"><a href="#扁平化" class="headerlink" title="扁平化"></a>扁平化</h1><ul>
 <li><strong>flatMap</strong>方法，扁平化<br>　　对Stream的操作，前面的筛选、切片和映射，都很容易理解，而扁平化则逐个分析。先列个例子：<br>对于一张单词 表 ， 如 何 返 回 一 张 列 表 ， 列 出 里 面 各 不 相 同 的 字 符 呢 ？ 例 如 ， 给 定 单 词 列 表[“Hello”,”World”]，你想要返列表[“H”,”e”,”l”, “o”,”W”,”r”,”d”]。<br>　　你可能会认为这很容易，你可以把每个单词映射成一张字符表，然后调用distinct来过滤重复的字符。第一个版本可能是这样的：<br><code>words.stream().map(word -&gt; word.split(&quot;&quot;)).distinct().collect(toList())</code><br>在<code>word -&gt; word.split(&quot;&quot;)</code>这个函数，它返回的是String []数组，所以最终映射的结果是一个<code>List&lt;String []&gt;</code>的列表，它的每一个元素是String []。</li>
 </ul>
-<p><strong>使用Arrays.stream()</strong><br>　　你需要一个Stream<string>，而不是Stream<string []="">。有一个叫作Arrays.stream()的方法可以接受一个数组并产生一个Stream。<br><code>String[] arrayOfWords = {&quot;Goodbye&quot;, &quot;World&quot;};</code><br><code>Stream&lt;String&gt; streamOfwords = Arrays.stream(arrayOfWords);</code><br>　　把它应用到流水线上：<br><code>words.stream().map(word -&gt; word.split(&quot;&quot;)).map(Arrays::stream).distinct().collect(toList());</code><br>　　在<code>map(word -&gt; word.split(&quot;&quot;))</code>映射成<code>Stream&lt;String []&gt;</code>，<code>map(Arrays::stream)</code>继续映射成<code>Stream&lt;Stream&lt;String&gt;&gt;</code>与期望的结果相违背。</string></string></p>
+<p><strong>使用Arrays.stream()</strong><br>　　你需要一个<code>Stream&lt;String&gt;</code>，而不是<code>Stream&lt;String []&gt;</code>。有一个叫作Arrays.stream()的方法可以接受一个数组并产生一个Stream。<br><code>String[] arrayOfWords = {&quot;Goodbye&quot;, &quot;World&quot;};</code><br><code>Stream&lt;String&gt; streamOfwords = Arrays.stream(arrayOfWords);</code><br>　　把它应用到流水线上：<br><code>words.stream().map(word -&gt; word.split(&quot;&quot;)).map(Arrays::stream).distinct().collect(toList());</code><br>　　在<code>map(word -&gt; word.split(&quot;&quot;))</code>映射成<code>Stream&lt;String []&gt;</code>，<code>map(Arrays::stream)</code>继续映射成<code>Stream&lt;Stream&lt;String&gt;&gt;</code>与期望的结果相违背。</p>
 <p><strong>使用flatMap()</strong><br><code>List&lt;String&gt; uniqueCharacters =words.stream().map(w -&gt;</code><br><code>w.split(&quot;&quot;)).flatMap(Arrays::stream).distinct().collect(Collectors.toList());</code><br>　　使用flatMap方法的效果是，各个数组并不是分别映射成一个流，而是映射成流的内容。所有使用map(Arrays::stream)时生成的单个流都被合并起来，即扁平化为一个流。一言以蔽之， flatmap方法让你把一个流中的每个值都换成另一个流，然后把所有的流连接起来成为一个流。</p>
 <h1 id="匹配和查找"><a href="#匹配和查找" class="headerlink" title="匹配和查找"></a>匹配和查找</h1><ul>
 <li><strong>anyMatch</strong>方法，至少匹配一个元素</li>
 <li><strong>allMatch</strong>方法，所有都匹配</li>
-<li><strong>noneMatch</strong>方法，所有都不匹配<br>　　前面3个方法，返回的都是boolean型，用于做元素匹配，如果要返回匹配的元素值可以用以下两个方法：</li>
+<li><strong>noneMatch</strong>方法，所有都不匹配</li>
+</ul>
+<p>　　前面3个方法，返回的都是boolean型，用于做元素匹配，如果要返回匹配的元素值可以用以下两个方法：</p>
+<ul>
 <li><strong>findAny</strong>方法，返回当前流中的任意元素<br><code>Optional&lt;Dish&gt; dish = menu.stream().filter(Dish::isVegetarian).findAny();</code><br>　　Optional<t>类（java.util.Optional）是一个容器类，代表一个值存在或不存在，Optional里面几种可以迫使你显式地检查值是否存在或处理值不存在的情形。</t></li>
 <li><strong>findFirst</strong>方法，查找第一个元素<br>　　为什么会同时有findFirst和findAny呢？答案是并行。找到第一个元素在并行上限制更多。如果你不关心返回的元素是哪个，请使用findAny，因为它在使用并行流时限制较少。</li>
 </ul>
