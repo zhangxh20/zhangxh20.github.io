@@ -94,7 +94,7 @@
 <meta property="og:url" content="http://zhangxh20.github.io/2017/07/25/streamuse/index.html">
 <meta property="og:site_name" content="张贤河">
 <meta property="og:description" content="Stream的使用一般包括三件事：  一个数据源（如集合）来执行一个查询； 一个中间操作链，形成一条流的流水线； 一个终端操作，执行流水线，并能生成结果  　　流的流水线背后的理念类似于构建器模式。 在构建器模式中有一个调用链用来设置一套配置（对流来说这就是一个中间操作链），接着是调用built方法（对流来说就是终端操作）">
-<meta property="og:updated_time" content="2017-07-26T12:23:21.224Z">
+<meta property="og:updated_time" content="2017-07-29T15:32:54.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 8 Stream 使用">
 <meta name="twitter:description" content="Stream的使用一般包括三件事：  一个数据源（如集合）来执行一个查询； 一个中间操作链，形成一条流的流水线； 一个终端操作，执行流水线，并能生成结果  　　流的流水线背后的理念类似于构建器模式。 在构建器模式中有一个调用链用来设置一套配置（对流来说这就是一个中间操作链），接着是调用built方法（对流来说就是终端操作）">
@@ -426,7 +426,7 @@
 <li><strong>由数组创建流</strong><br><code>int[] numbers = {2, 3, 5, 7, 11, 13};</code><br><code>int sum = Arrays.stream(numbers).sum();</code></li>
 <li><strong>由值创建流</strong><br><code>Stream&lt;String&gt; stream = Stream.of(&quot;Java 8 &quot;, &quot;Lambdas &quot;, &quot;In &quot;, &quot;Action&quot;);</code></li>
 <li><strong>由文件生成流</strong><br>　　<code>java.nio.file.Files</code>中的很多静态方法都会返回一个流。例如，一个很有用的方法是<code>Files.lines</code>它会返回一个由指定文件中的各行构成的字符串流。<br><code>Stream&lt;String&gt; lines = Files.lines(Paths.get(&quot;data.txt&quot;), Charset.defaultCharset())</code></li>
-<li><strong>由函数生成流：创建无限流</strong><br>　　Stream API提供了两个静态方法来从函数生成流： <code>Stream.iterate</code>和<code>Stream.generate</code></li>
+<li><strong>由函数生成流：创建无限流</strong><br>　　Stream API提供了两个静态方法来从函数生成流： <code>Stream.iterate</code>和<code>Stream.generate</code>。<br><code>Stream.iterate(0, n -&gt; n + 2).limit(10).forEach(System.out::println);</code>流的第一个元素是初始值0。然后加上2来生成新的值2，再加上2来得到新的值4，以此类推。<br><code>Stream.generate(Math::random).limit(5).forEach(System.out::println);</code>这段代码将生成一个流，其中有五个0到1之间的随机双精度数。</li>
 </ul>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
 <li>《Java 8 in Action》</li>
