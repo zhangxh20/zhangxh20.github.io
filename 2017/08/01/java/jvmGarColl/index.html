@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Java,JVM," />
 
 
 
@@ -87,12 +87,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="张贤河">
-<meta property="og:url" content="http://zhangxh20.github.io/page/2/index.html">
+<meta name="description" content="在早期的 C/C++时代，垃圾回收基本上是手工进行的。开发人员可以使用new关键字进行内存申请，并使用delete关键字进行内存释放，而Java虚拟机直接提供了一套全自动内存管理方案。　　在Java内存运行时区域的各个部分,其中程序计数器、虚拟机栈、本地方法栈3个区域随线程而生随线程而灭。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的， 因此这几个区域的内存分配和回收都具备确定性，">
+<meta name="keywords" content="Java,JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java虚拟机垃圾收集算法">
+<meta property="og:url" content="http://zhangxh20.github.io/2017/08/01/java/jvmGarColl/index.html">
 <meta property="og:site_name" content="张贤河">
+<meta property="og:description" content="在早期的 C/C++时代，垃圾回收基本上是手工进行的。开发人员可以使用new关键字进行内存申请，并使用delete关键字进行内存释放，而Java虚拟机直接提供了一套全自动内存管理方案。　　在Java内存运行时区域的各个部分,其中程序计数器、虚拟机栈、本地方法栈3个区域随线程而生随线程而灭。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的， 因此这几个区域的内存分配和回收都具备确定性，">
+<meta property="og:updated_time" content="2017-07-31T14:17:26.288Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="张贤河">
+<meta name="twitter:title" content="Java虚拟机垃圾收集算法">
+<meta name="twitter:description" content="在早期的 C/C++时代，垃圾回收基本上是手工进行的。开发人员可以使用new关键字进行内存申请，并使用delete关键字进行内存释放，而Java虚拟机直接提供了一套全自动内存管理方案。　　在Java内存运行时区域的各个部分,其中程序计数器、虚拟机栈、本地方法栈3个区域随线程而生随线程而灭。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的， 因此这几个区域的内存分配和回收都具备确定性，">
 
 
 
@@ -120,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://zhangxh20.github.io/page/2/"/>
+  <link rel="canonical" href="http://zhangxh20.github.io/2017/08/01/java/jvmGarColl/"/>
 
 
 
 
 
-  <title> 张贤河 </title>
+  <title> Java虚拟机垃圾收集算法 | 张贤河 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -151,9 +156,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -266,9 +269,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -277,7 +280,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/13/buffer/">
+    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/08/01/java/jvmGarColl/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhangxianhe">
@@ -298,10 +301,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/06/13/buffer/" itemprop="url">
-                  Java NIO中的Buffer
-                </a>
+                Java虚拟机垃圾收集算法
               
             
           </h1>
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-13T12:07:39+08:00">
-                2017-06-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-01T21:11:25+08:00">
+                2017-08-01
               </time>
             
 
@@ -374,202 +374,86 @@
       
 
       
+        <p>　　在早期的 C/C++时代，垃圾回收基本上是手工进行的。开发人员可以使用new关键字进行内存申请，并使用delete关键字进行内存释放，而Java虚拟机直接提供了一套全自动内存管理方案。<br>　　在Java内存运行时区域的各个部分,其中程序计数器、虚拟机栈、本地方法栈3个区域随线程而生随线程而灭。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的， 因此这几个区域的内存分配和回收都具备确定性，就不需要过多考虑回收的问题。 而 Java堆和方法区则不一样，一个接口中的多个实现类需要的内存可能不一样，一个方法中的多个分支需要的内存也可能不一样，我们只有在程序处于运行期间时才能知道会创建哪些对象，这部分内存的分配和回收都是动态的。<br><a id="more"></a></p>
+<h1 id="如何判断是垃圾可回收对象"><a href="#如何判断是垃圾可回收对象" class="headerlink" title="如何判断是垃圾可回收对象"></a>如何判断是垃圾可回收对象</h1><h3 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h3><p>　　引用计数器的实现很简单，对于一个对象 A，只要有任何一个对象引用了 A，则 A的引用计数器就加1，当引用失效时，引用计数器就减l。只要对象A的引用计数器的值为 0，则对象A就不可能再被使用 。<br>　　引用计数器有两个非常严重的问题:</p>
+<ol>
+<li>无法处理循环引用的情况。因此,在 Java的垃圾回收器中，没有使用这种算法。</li>
+<li>引用计算器要求在每次因引用产生和消除的时候，需要伴随一个加法操作和减法操作，对系统性能会有一定的影响。</li>
+</ol>
+<h3 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h3><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li>《深入理解Java虚拟机：JVM高级特性与最佳实践》</li>
+<li>《实战Java虚拟机，JVM故障诊断与性能优化》</li>
+<li>《HotSpot实战》</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
         
-          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　Buffer缓冲区，首先要弄明白的是，缓冲区是怎样一个概念。Buffer是把数据保存在内存中，它本质上用来保存数据的数据结构是数组，例如<code>ByteBuffer</code>是byte数组，<code>IntBuffer</code>是int数组等，对Buffer读写操作，其实是对该数组进行数据存放、读取、清除操作。</p>
-<p>　　Buffer可以理解成是一个容器，可以往容器里写入数据，也可以从容器中读取数据，可以一个字节一个字节的读写，也可以多个字节读写，可以在写的途中切换为读，读到一半又切换到写，等等。。。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/13/buffer/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
-      
-    </div>
-
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/09/methodhandle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zhangxianhe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张贤河">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/09/methodhandle/" itemprop="url">
-                  MethodHandle
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-09T18:07:39+08:00">
-                2017-06-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java核心技术/" itemprop="url" rel="index">
-                    <span itemprop="name">Java核心技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
-
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
         
-          <p>JDK7为间接调用方法引入新的API,在<code>java.lang.invoke</code>包下，可以看作为反射的升级版，但它不像反射API那样显得冗长、繁重<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/09/methodhandle/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/26/jvmspace/" rel="next" title="Java虚拟机运行时内存数据区域">
+                <i class="fa fa-chevron-left"></i> Java虚拟机运行时内存数据区域
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -577,6 +461,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -678,6 +566,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
