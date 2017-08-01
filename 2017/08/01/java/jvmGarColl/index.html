@@ -94,10 +94,14 @@
 <meta property="og:url" content="http://zhangxh20.github.io/2017/08/01/java/jvmGarColl/index.html">
 <meta property="og:site_name" content="张贤河">
 <meta property="og:description" content="在早期的 C/C++时代，垃圾回收基本上是手工进行的。开发人员可以使用new关键字进行内存申请，并使用delete关键字进行内存释放，而Java虚拟机直接提供了一套全自动内存管理方案。　　在Java内存运行时区域的各个部分,其中程序计数器、虚拟机栈、本地方法栈3个区域随线程而生随线程而灭。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的， 因此这几个区域的内存分配和回收都具备确定性，">
-<meta property="og:updated_time" content="2017-07-31T14:17:26.288Z">
+<meta property="og:image" content="http://ot1c4abw2.bkt.clouddn.com/012.png">
+<meta property="og:image" content="http://ot1c4abw2.bkt.clouddn.com/013.png">
+<meta property="og:image" content="http://ot1c4abw2.bkt.clouddn.com/014.png">
+<meta property="og:updated_time" content="2017-08-01T15:25:07.813Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机垃圾收集算法">
 <meta name="twitter:description" content="在早期的 C/C++时代，垃圾回收基本上是手工进行的。开发人员可以使用new关键字进行内存申请，并使用delete关键字进行内存释放，而Java虚拟机直接提供了一套全自动内存管理方案。　　在Java内存运行时区域的各个部分,其中程序计数器、虚拟机栈、本地方法栈3个区域随线程而生随线程而灭。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的， 因此这几个区域的内存分配和回收都具备确定性，">
+<meta name="twitter:image" content="http://ot1c4abw2.bkt.clouddn.com/012.png">
 
 
 
@@ -380,7 +384,21 @@
 <li>无法处理循环引用的情况。因此,在 Java的垃圾回收器中，没有使用这种算法。</li>
 <li>引用计算器要求在每次因引用产生和消除的时候，需要伴随一个加法操作和减法操作，对系统性能会有一定的影响。</li>
 </ol>
-<h3 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h3><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<h3 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h3><p>　　在主流的商用程序语言(Java、 C#)的主流实现中，都是过可达性分析来判定对象是否存活的。这个算法的基本思路就是通过一系列的称为 “GC Roots” 的对象作为起始点, 从这些节点开始向下搜索, 搜索所走过的路径称为引用链，当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的。<br>　　对于下图，object5,object6,object7虽然互相有关联，但是它们到GC Roots是不可达的，所以它们将会被判定为是可回收的对象。<br><img src="http://ot1c4abw2.bkt.clouddn.com/012.png" alt="GC Roots可达性分析" title="GC Roots可达性分析"><br>　　在Java语言中，可作为GC Roots的对象包括下面几种：</p>
+<ul>
+<li>虚拟机栈中引用的对象。</li>
+<li>方法区中类静态属性引用的对象。</li>
+<li>方法区中常量引用的对象。</li>
+<li>本地方法栈中JNI引用的对象。</li>
+</ul>
+<h1 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记-清除算法"></a>标记-清除算法</h1><p>　　标记清除算法是现代垃圾回收算法的思想基础。标记清除算法将垃圾回收分为两个阶段：标记阶段和清除阶段。一种可行的实现是，在标记阶段，首先通过根节点，标记所有从根节点开始的可达对象。因此未标记的对象就是未被引用的垃圾对象。然后在清除阶段，清除所有未标记的对象。<br><img src="http://ot1c4abw2.bkt.clouddn.com/013.png" alt="标记清除法工作图" title="标记清除法"><br>　　不过标记清除算法有两个不足：</p>
+<ul>
+<li>一个是效率问题，标记和清除两个过程的效率都不高。</li>
+<li>另一个是空间问题，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。</li>
+</ul>
+<h1 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h1><p>　　复制算法的核心思想是：将原有的内存空间分成两块，每次只是用其中的一块，在垃圾回收时，将正在使用的内存中的存活对象复制到未使用的内存块中，之后，清除正在使用的内存块中的所有对象，交换两个内存的角色，完成垃圾回收。<br>　　如果系统中的垃圾对象很多，复制算法需要复制的存活对象数量就会相对较少。因此，在真正需要垃圾回收的时刻，复制算法的效率是很高的。又由于对象是在垃圾回收过程中，统一被复制到新的内存空间中。因此可确保回收后的内存空间是没有碎片的，但是这种算法的代价是将内存缩小为原来的的一半。<br><img src="http://ot1c4abw2.bkt.clouddn.com/014.png" alt="复制算法" title="复制算法"> </p>
+<h3 id="Java新生代垃圾回收"><a href="#Java新生代垃圾回收" class="headerlink" title="Java新生代垃圾回收"></a>Java新生代垃圾回收</h3><p>　　Java新生代串行垃圾回收器中，使用了复制算法的思想。新生代分为eden空间、from和to两个survivor空间。其中from和to空间可以视为用于复制的两块大小相同可进行角色互换的空间块。<br>　　在垃圾回收时，eden空间中存活的对象会被复制到未使用的survivor空间中（假设是to），正在使用的survivor空间（假设是from）中的年轻对象也会被复制到to空间中（大对象，或者老年对象会直接进入老年代，如果to空间已满，则对象也会直接进入老年代）。此时，eden空间和from空间中的剩余对象就是垃圾对象，可以直接清空，to空间则存放此次回收后的存活对象。这种改进的复制算法，既保证了空间的连续性，又避免了大量的内存空间浪费。<br>　　据研究表明，新生代中的对象98%是“朝生夕死”，HotSpot虚拟机默认Eden和Survivor的大小比例是8:2，也就是每次新生代中可用内存空间为整个新生代容量的90%，只有10%会被浪费。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
 <li>《深入理解Java虚拟机：JVM高级特性与最佳实践》</li>
 <li>《实战Java虚拟机，JVM故障诊断与性能优化》</li>
 <li>《HotSpot实战》</li>
