@@ -277,6 +277,152 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/08/20/redis/codisdetail/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhangxianhe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张贤河">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/20/redis/codisdetail/" itemprop="url">
+                  Codis原理解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-20T21:11:25+08:00">
+                2017-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/缓存/" itemprop="url" rel="index">
+                    <span itemprop="name">缓存</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="zookeeper数据结构"><a href="#zookeeper数据结构" class="headerlink" title="zookeeper数据结构"></a>zookeeper数据结构</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">codis3</span>: &#123;</div><div class="line">		codis-demon: &#123;</div><div class="line">			proxy： &#123;</div><div class="line">				proxy<span class="number">-511</span>fd2ee56c7b10ce3f19a2de90e7593 : &#123;</div><div class="line">					<span class="string">"id"</span>: <span class="number">1</span>,</div><div class="line">					<span class="string">"token"</span>: <span class="string">"511fd2ee56c7b10ce3f19a2de90e7593"</span>,</div><div class="line">					<span class="string">"start_time"</span>: <span class="string">"2017-08-20 09:58:33.552126433 -0400 EDT"</span>,</div><div class="line">					<span class="string">"admin_addr"</span>: <span class="string">"192.168.84.128:11080"</span>,</div><div class="line">					<span class="string">"proto_type"</span>: <span class="string">"tcp4"</span>,</div><div class="line">					<span class="string">"proxy_addr"</span>: <span class="string">"192.168.84.128:19000"</span>,</div><div class="line">					<span class="string">"jodis_path"</span>: <span class="string">"/jodis/codis-demo/proxy-511fd2ee56c7b10ce3f19a2de90e7593"</span>,</div><div class="line">					<span class="string">"product_name"</span>: <span class="string">"codis-demo"</span>,</div><div class="line">					<span class="string">"pid"</span>: <span class="number">2286</span>,</div><div class="line">					<span class="string">"pwd"</span>: <span class="string">"/root/go/src/github.com/CodisLabs/codis"</span>,</div><div class="line">					<span class="string">"sys"</span>: <span class="string">"Linux localhost.localdomain 3.10.0-514.26.2.el7.x86_64 #1 SMP Tue Jul 4 15:04:05 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux"</span>,</div><div class="line">					<span class="string">"hostname"</span>: <span class="string">"localhost.localdomain"</span>,</div><div class="line">					<span class="string">"datacenter"</span>: <span class="string">""</span></div><div class="line">				&#125;</div><div class="line">			&#125;,</div><div class="line">			<span class="attr">slots</span>: &#123;</div><div class="line">				slot<span class="number">-0206</span> : &#123;</div><div class="line">					<span class="string">"id"</span>: <span class="number">206</span>,</div><div class="line">					<span class="string">"group_id"</span>: <span class="number">1</span>,</div><div class="line">					<span class="string">"action"</span>: &#123;&#125;</div><div class="line">				&#125;</div><div class="line">			&#125;,</div><div class="line">			<span class="attr">topom</span>: &#123;</div><div class="line">				<span class="string">"token"</span>: <span class="string">"35dd03b60c87d9dc394563a6ca75c892"</span>,</div><div class="line">				<span class="string">"start_time"</span>: <span class="string">"2017-08-20 09:58:33.533115186 -0400 EDT"</span>,</div><div class="line">				<span class="string">"admin_addr"</span>: <span class="string">"192.168.84.128:18080"</span>,</div><div class="line">				<span class="string">"product_name"</span>: <span class="string">"codis-demo"</span>,</div><div class="line">				<span class="string">"pid"</span>: <span class="number">2277</span>,</div><div class="line">				<span class="string">"pwd"</span>: <span class="string">"/root/go/src/github.com/CodisLabs/codis"</span>,</div><div class="line">				<span class="string">"sys"</span>: <span class="string">"Linux localhost.localdomain 3.10.0-514.26.2.el7.x86_64 #1 SMP Tue Jul 4 15:04:05 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux"</span></div><div class="line">			&#125;,</div><div class="line">			<span class="attr">group</span>: &#123;</div><div class="line">				group<span class="number">-0001</span> &#123;</div><div class="line">					<span class="string">"id"</span>: <span class="number">1</span>,</div><div class="line">					<span class="string">"servers"</span>: [</div><div class="line">						&#123;</div><div class="line">							<span class="string">"server"</span>: <span class="string">"127.0.0.1:6379"</span>,</div><div class="line">							<span class="string">"datacenter"</span>: <span class="string">""</span>,</div><div class="line">							<span class="string">"action"</span>: &#123;&#125;,</div><div class="line">							<span class="string">"replica_group"</span>: <span class="literal">false</span></div><div class="line">						&#125;</div><div class="line">					],</div><div class="line">					<span class="string">"promoting"</span>: &#123;&#125;,</div><div class="line">					<span class="string">"out_of_sync"</span>: <span class="literal">false</span></div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://github.com/CodisLabs/codis/blob/release3.2/doc/tutorial_zh.md" title="Codis 使用文档" target="_blank" rel="external">Codis 使用文档</a> </li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/08/18/redis/codis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -326,6 +472,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/缓存/" itemprop="url" rel="index">
+                    <span itemprop="name">缓存</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1554,134 +1722,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/07/03/asyncservlet/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/06/29/springbootdetail/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zhangxianhe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张贤河">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/29/springbootdetail/" itemprop="url">
-                  Spring Boot启动流程源码分析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-29T21:11:25+08:00">
-                2017-06-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><p>　　在Spring Boot入口类里,会在类名上加@EnableAutoConfiguration或者@SpringBootApplication注解，这两个有什么差别呢？</p>
-<h2 id="EnableAutoConfiguration"><a href="#EnableAutoConfiguration" class="headerlink" title="@EnableAutoConfiguration"></a>@EnableAutoConfiguration</h2><p>@EnableAutoConfiguration注解的源码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"deprecation"</span>)</div><div class="line"><span class="meta">@Target</span>(ElementType.TYPE)</div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Inherited</span></div><div class="line"><span class="meta">@AutoConfigurationPackage</span></div><div class="line"><span class="meta">@Import</span>(EnableAutoConfigurationImportSelector.class)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</div><div class="line"></div><div class="line">	String ENABLED_OVERRIDE_PROPERTY = <span class="string">"spring.boot.enableautoconfiguration"</span>;</div><div class="line"></div><div class="line">	Class&lt;?&gt;[] exclude() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">	String[] excludeName() <span class="keyword">default</span> &#123;&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="SpringBootApplication"><a href="#SpringBootApplication" class="headerlink" title="@SpringBootApplication"></a>@SpringBootApplication</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Target</span>(ElementType.TYPE)</div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Inherited</span></div><div class="line"><span class="meta">@SpringBootConfiguration</span></div><div class="line"><span class="meta">@EnableAutoConfiguration</span></div><div class="line"><span class="meta">@ComponentScan</span>(excludeFilters = &#123;</div><div class="line">		<span class="meta">@Filter</span>(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),</div><div class="line">		<span class="meta">@Filter</span>(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) &#125;)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</div><div class="line"></div><div class="line">	<span class="meta">@AliasFor</span>(annotation = EnableAutoConfiguration.class, attribute = <span class="string">"exclude"</span>)</div><div class="line">	Class&lt;?&gt;[] exclude() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">	<span class="meta">@AliasFor</span>(annotation = EnableAutoConfiguration.class, attribute = <span class="string">"excludeName"</span>)</div><div class="line">	String[] excludeName() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">	<span class="meta">@AliasFor</span>(annotation = ComponentScan.class, attribute = <span class="string">"basePackages"</span>)</div><div class="line">	String[] scanBasePackages() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">	<span class="meta">@AliasFor</span>(annotation = ComponentScan.class, attribute = <span class="string">"basePackageClasses"</span>)</div><div class="line">	Class&lt;?&gt;[] scanBasePackageClasses() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>　　可以看出<code>@SpringBootApplication</code>相当于是<code>@Configuration</code>,<code>@EnableAutoConfiguration</code>,<code>@ComponentScan</code>这三者的结合。<code>@SpringBootApplication</code>也提供了后面两个注解配置的别名(alias)。<br>例如<code>exclude</code>排除的类，<code>scanBasePackages</code>扫描的包名等，这些都可以直接该注解上进行配置。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/29/springbootdetail/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
