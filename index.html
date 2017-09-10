@@ -277,6 +277,153 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/09/10/java/forkjoin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhangxianhe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张贤河">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/09/10/java/forkjoin/" itemprop="url">
+                  Java Fork/Join框架
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-10T21:11:25+08:00">
+                2017-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java核心技术/" itemprop="url" rel="index">
+                    <span itemprop="name">Java核心技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>　　分而治之，一直是一个非常有效的处理大量数据的的方法。注明的MapReduce也是采取了分而治之的思想。简单来说，就是如鞥你要处理1000个数据库但是你并不具备处理1000个数据的能力，那么慢你可以只处理其中的10个，然后分阶段处理100次，将100次的结果进行合成，那就是追随想要的对原始1000个数据的处理结果。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/10/java/forkjoin/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/09/04/redis/cacheCollapse/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -300,7 +447,7 @@
               
                 
                 <a class="post-title-link" href="/2017/09/04/redis/cacheCollapse/" itemprop="url">
-                  缓存崩溃问题
+                  缓存雪崩问题
                 </a>
               
             
@@ -375,7 +522,7 @@
 
       
         
-          <p>　　缓存奔溃一般形容的是，高并发环境中，某一个数据，因为缓存过期，读不到数据而从数据库读取，一下子大量请求堆积到了数据库上。而数据库的并发能力有限，最终导致获取不到数据库连接，读不了数据库。</p>
+          <p>　　缓存雪崩一般形容的是，高并发环境中，某一个数据，因为缓存过期，读不到数据而从数据库读取，一下子大量请求堆积到了数据库上。而数据库的并发能力有限，最终导致获取不到数据库连接，读不了数据库。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/09/04/redis/cacheCollapse/#more" rel="contents">
@@ -1575,156 +1722,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/07/13/lambda/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangxh20.github.io/2017/07/09/websocket/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zhangxianhe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张贤河">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/09/websocket/" itemprop="url">
-                  Java实现Websocket
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T21:11:25+08:00">
-                2017-07-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java核心技术/" itemprop="url" rel="index">
-                    <span itemprop="name">Java核心技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Websocket介绍"><a href="#Websocket介绍" class="headerlink" title="Websocket介绍"></a>Websocket介绍</h1><p>　　在一个 WebSocket应用中, 服务器发布一个 WebSocket端点, 客户端使用这个端点的URI来连接服务器。建立连接之后,websocket协议是对称的;客户端和服务器可以在连接打开的任何时间相互发送消息,而且它们可以在任何时间关闭连接。客户端总是只连接到一 个服务器，而服务器可以接受多个客户端的连接。<br>　　WebSocket协议有两部分: 握手和数据传输。 客户端使用一个 WebSocket端点的 URI向它发送一个请求,发起握手过程。这个握手过程与现有基于 HTTP的基石出设施是兼容的:web服务器把它解释为一个 HTTP连接升级请求。<br>WebSocket支持文本消息(编码为 UTF-8 )和二进制消息。 WebSocket中的控制帧是close、 ping和pong(对ping帧的响应)。 ping和 pong帧可能还包含应用数据。websocket端点由采用以下形式的 URI表示:</p>
-<ul>
-<li>ws://host:port/path?query</li>
-<li>wss://host:port/path?query
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/09/websocket/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
